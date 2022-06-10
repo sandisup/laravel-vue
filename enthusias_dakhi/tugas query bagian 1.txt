@@ -1,0 +1,10 @@
+SELECT * FROM 'obat';  
+SELECT nama_obat FROM 'obat';
+SELECT * FROM `obat` WHERE id < 7;
+SELECT nama, jenis_supplier FROM 'supplier';
+SELECT * FROM 'detail_penjualan';
+SELECT * FROM `supplier` WHERE id < 11;
+SELECT agama FROM `detail_supplier` WHERE agama LIKE '%islam%';
+SELECT agama FROM `detail_supplier` WHERE agama LIKE '%kristen%';
+SELECT * FROM `penjualan` WHERE jumlah_barang < 30;
+SELECT * FROM `penjualan` WHERE nama_obat LIKE '%bodrek%';
