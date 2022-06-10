@@ -1,0 +1,5 @@
+UPDATE obat SET nama_obat = 'oskadon oye' WHERE id = 2;
+UPDATE supplier SET nama = 'tino sutino' WHERE id = 7;
+UPDATE detail_supplier SET agama = 'kristen protestan' WHERE id_supplier = 7;
+DELETE FROM `detail_penjualan` WHERE id = 5;
+DELETE FROM `obat` WHERE id = 6
