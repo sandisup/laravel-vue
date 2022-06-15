@@ -5,22 +5,22 @@
 
 <?php
 	include_once("connect.php");
-    $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
+    $pengarang = mysqli_query($mysqli, "SELECT * FROM pengarang");
 ?>
 
 <body>
-	<a href="penerbit.php">Go to Penerbit</a>
+	<a href="pengarang.php">Go to Pengarang</a>
 	<br/><br/>
 
-    <form action="add_penerbit.php" method="post" name="form3">
+    <form action="add_pengarang.php" method="post" name="form4">
 		<table width="25%" border="0">
         <tr> 
 				<td>ID</td>
-				<td><input type="text" name="id_penerbit"></td>
+				<td><input type="text" name="id_pengarang"></td>
 			</tr>
         <tr> 
-				<td>Nama Penerbit</td>
-				<td><input type="text" name="nama_penerbit"></td>
+				<td>Nama Pengarang</td>
+				<td><input type="text" name="nama_pengarang"></td>
 			</tr>  
             <tr> 
 				<td>Email</td>
@@ -45,17 +45,17 @@
 	 
 		// Check If form submitted, insert form data into users table.
 		if(isset($_POST['Submit'])) {
-			$id_penerbit = $_POST['id_penerbit'];
-			$nama_penerbit = $_POST['nama_penerbit'];
+			$id_pengarang = $_POST['id_pengarang'];
+			$nama_pengarang = $_POST['nama_pengarang'];
 			$email = $_POST['email'];
 			$telp = $_POST['telp'];
 			$alamat = $_POST['alamat'];
 
 			include_once("connect.php");
 
-			$result = mysqli_query($mysqli, "INSERT INTO `penerbit` (`id_penerbit`, `nama_penerbit`, `email`, `telp`, `alamat`) VALUES ('$id_penerbit', '$nama_penerbit', '$email', '$telp', '$alamat');");
+			$result = mysqli_query($mysqli, "INSERT INTO `pengarang` (`id_pengarang`, `nama_pengarang`, `email`, `telp`, `alamat`) VALUES ('$id_pengarang', '$nama_pengarang', '$email', '$telp', '$alamat');");
 			
-			header("Location:penerbit.php");
+			header("Location:pengarang.php");
 		}
 	?>
 

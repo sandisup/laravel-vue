@@ -20,6 +20,9 @@
     <hr>
 </center>
 
+<a href="add_pengarang.php">Add New Pengarang</a><br/><br/>
+
+
 <table class="table" width='80%' border=1>
  
     <tr>
@@ -38,7 +41,7 @@
             echo "<td>".$pengarang_data['email']."</td>";    
             echo "<td>".$pengarang_data['telp']."</td>";    
             echo "<td>".$pengarang_data['alamat']."</td>";    
-            echo "<td><a class='btn btn-primary' href='edit.php?id_pengarang=$pengarang_data[id_pengarang]'>Edit</a> | <a class='btn btn-danger' href='delete.php?id_pengarang=$pengarang_data[id_pengarang]'>Delete</a></td></tr>";        
+            echo "<td><a class='btn btn-primary' href='edit.php?id_pengarang=$pengarang_data[id_pengarang]'>Edit</a> | <a class='btn btn-danger' href='delete_pengarang.php?id_pengarang=$pengarang_data[id_pengarang]'>Delete</a></td></tr>";        
         }
     ?>
     </table>
