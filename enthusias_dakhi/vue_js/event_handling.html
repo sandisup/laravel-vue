@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Basic Component Vue.js
+        </title>
+        <body>
+            <div id="contoh-1">
+                <button v-on:click="counter += 1">Tambah 1</button>
+                <p>Tombol diatas telah ditekan {{ counter }} kali.</p>
+            </div>
+
+            <div id="contoh-2">
+                <!-- `greet` adalah nama metode yang telah didefinisikan di bawah -->
+                <button v-on:click="greet">Greet</button>
+            </div>
+<br>
+            <div id="contoh-3">
+                <button v-on:click="say('hi')">Say hi</button>
+                <button v-on:click="say('what')">Say what</button>
+              </div>
+<br>
+        </body>
+    </head>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+var contoh1 = new Vue({
+    el: '#contoh-1',
+    data: {
+      counter: 0
+    }
+  })
+
+  var contoh2 = new Vue({
+  el: '#contoh-2',
+  data: {
+    name: 'Vue.js'
+  },
+  // mendefinisikan metode dibawah `methods` object
+  methods: {
+    greet: function (event) {
+      // `this` di dalam metode merujuk ke Vue instance
+      alert('Hello ' + this.name + '!')
+      // `event` adalah bawaan DOM event
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+new Vue({
+  el: '#contoh-3',
+  methods: {
+    say: function (message) {
+      alert(message)
+    }
+  }
+})
+</script>
