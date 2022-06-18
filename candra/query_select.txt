@@ -1,0 +1,12 @@
+Query SELECT database apotek
+
+1. SELECT * FROM `obat`
+2. SELECT merk, produksi, stok, kadaluwarsa FROM `obat` 
+3. SELECT pemasok, tanggal, jumlah FROM `pemasok`
+4. SELECT nama, alamat, telepon FROM `pelanggan`
+5. SELECT * FROM `obat` WHERE kadaluwarsa > '2022-07-20'
+6. SELECT * FROM `obat` WHERE kadaluwarsa >= '2022-07-20'
+7. SELECT * FROM `obat` WHERE stok = 50
+8. SELECT * FROM `obat` WHERE kadaluwarsa < '2022-07-21'
+9. SELECT pemasok, jumlah FROM `pemasok` WHERE jumlah >= 30
+10. SELECT pemasok, tanggal, jumlah FROM `pemasok` WHERE tanggal = '2022-06-19'
