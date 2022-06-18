@@ -1,0 +1,11 @@
+Membuat 5 query update dan delete
+
+1. UPDATE `obat` SET `merk`= 'Vitamin B Complex' WHERE id = 13
+
+2. UPDATE `resep` SET `resep_obat`= 'Insomnia' WHERE id = 5
+
+3. UPDATE `pemasok` SET `tanggal`= '2022-06-25' WHERE id = 3
+
+4. DELETE FROM `obat` WHERE id = 13
+
+5. DELETE FROM `transaksi` WHERE id = 13
