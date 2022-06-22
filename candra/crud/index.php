@@ -5,33 +5,36 @@
                                         LEFT JOIN  penerbit ON penerbit.id_penerbit = buku.id_penerbit
                                         LEFT JOIN  katalog ON katalog.id_katalog = buku.id_katalog
                                         ORDER BY judul ASC");
-    // $buku = mysqli_query($mysqli, "SELECT buku.*, nama_pengarang, nama_penerbit, katalog.nama as nama_katalog FROM buku
-    //                                 LEFT JOIN pengarang ON pengarang.id_pengarang = buku.id_pengarang
-    //                                 LEFT JOIN penerbit ON penerbit.id_penerbit = buku.id_penerbit
-    //                                 LEFT JOIN katalog ON katalog.id_katalog = buku.id_katalog
-    //                                 ORDER BY judul ASC");
 ?>
 
 <html>
 <head>
     <title>CRUD Perpustakaan</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </head>
 <body>
-    <center>
-        <a href="index.php">Buku </a> |
-        <a href="penerbit.php"> Penerbit </a> |
-        <a href="pengarang.php"> Pengarang </a> |
-        <a href="katalog.php"> Katalog</a>
-        <hr>
-    </center>
+    <ul class="nav nav-pills nav-fill" style="width: 50%;">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Buku</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="penerbit.php">Penerbit</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="pengarang.php">Pengarang</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="katalog.php">Katalog</a>
+    </li>
+    </ul>
 
-    <a href="add.php">Add Buku</a>
+    <br>
+    <a class="btn btn-success" href="add.php">Add Buku</a>
     <br><br>
 
     <table class="table" style="width: 80%;" border="1">
-        <tr align="center">
+        <tr>
             <td>ISBN</td>
             <td>Judul</td>
             <td>Tahun</td>
