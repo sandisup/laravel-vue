@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function _construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class PublisherController extends Controller
     {
         $publishers = Publisher::with('books')->get();
         // return $catalogs;
-         return view('admin.publisher.index', compact('publishers'));   
+         return view('admin.publisher', compact('publishers'));   
     }
 
     /**
@@ -47,7 +51,7 @@ class PublisherController extends Controller
 
         publisher::create($request->all());
 
-        return redirect('publisher');  
+        return redirect('publishers');  
     }
 
     /**
@@ -69,7 +73,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit', compact ('publisher'));
+        //return view('admin.publisher.edit', compact ('publisher'));
     }
 
     /**
@@ -87,7 +91,7 @@ class PublisherController extends Controller
 
         $publisher->update($request->all());
 
-        return redirect('publisher');   
+        return redirect('publishers');   
     }
 
     /**
@@ -100,6 +104,6 @@ class PublisherController extends Controller
     {
         $publisher->delete();
 
-        return redirect('publisher');
+        return redirect('publishers');
     }
 }

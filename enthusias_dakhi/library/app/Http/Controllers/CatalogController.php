@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
+    public function _construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +51,7 @@ class CatalogController extends Controller
 
         catalog::create($request->all());
 
-        return redirect('catalog');
+        return redirect('catalogs');
     }
 
     /**
@@ -87,7 +91,7 @@ class CatalogController extends Controller
 
         $catalog->update($request->all());
 
-        return redirect('catalog');
+        return redirect('catalogs');
 
     }
 
@@ -101,6 +105,6 @@ class CatalogController extends Controller
     {
         $catalog->delete();
 
-        return redirect('catalog');
+        return redirect('catalogs');
     }
 }
