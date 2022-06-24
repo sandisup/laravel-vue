@@ -75,20 +75,22 @@ class HomeController extends Controller
                 ->Join('transactions', 'transactions.member_id', '=', 'members.id')
                 ->where('date_start','LIKE','%'.'-05-'.'%')
                 ->get();
-        //no 9 still error
+        //no 9 
         $data9 = Member::select('members.name', 'members.phone_number', 'members.address','transactions.date_start', 'transactions.date_end')
                 ->Join('transactions', 'transactions.member_id', '=', 'members.id')
-                ->where('date_start','LIKE','%'.'-06-'.'%','AND','date_end','LIKE','%'.'-06-'.'%')
+                ->where('date_start','LIKE','%'.'-06-'.'%')
+                ->where('date_end','LIKE','%'.'-06-'.'%')
                 ->get();
         //no 10
         $data10 = Member::select('members.name', 'members.phone_number', 'members.address','transactions.date_start', 'transactions.date_end')
                 ->Join('transactions', 'transactions.member_id', '=', 'members.id')
                 ->where('address','LIKE','%'.'lake'.'%')
                 ->get();
-        //no 11 still error
+        //no 11 
         $data11 = Member::select('members.name', 'members.phone_number', 'members.address','transactions.date_start', 'transactions.date_end')
                 ->Join('transactions', 'transactions.member_id', '=', 'members.id')
-                ->where('address','LIKE','%'.'lake'.'%','AND','gender','LIKE','%'.'2'.'%')
+                ->where('address','LIKE','%'.'Jaskolskifurt'.'%')
+                ->where('gender','LIKE','%'.'2'.'%')
                 ->get();
         //no 12
         $data12 = Member::select('members.name', 'members.phone_number', 'members.address','transactions.date_start', 'transactions.date_end', 'transaction_details.book_id', 'transaction_details.qty')
@@ -133,10 +135,10 @@ class HomeController extends Controller
                 ->get();
         //no 20
         $data20 = Member::select('*')
-               // ->where('members.cretaed_at','LIKE','%'.'-06-'.'%')
+               // ->where('members.crated_at','LIKE','%'.'-06-'.'%')
                 ->get();
 
-        //return $data20;
+        return $data11;
         return view('home');
     }
 }
