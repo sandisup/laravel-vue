@@ -1,0 +1,12 @@
+1.UPDATE`obat_2` SET `harga`= 15.000
+WHERE id = '1'
+
+2.UPDATE`obat_2` SET `nama_obat` = 'mixagrip'
+WHERE id = '3'
+
+3.UPDATE`obat_2` SET `cara_pemakaian` = '2 kali sehari sesudah makan'
+WHERE id = '3'
+
+4.DELETE FROM `obat_2` WHERE id = '1'
+
+5.DELETE FROM `obat_2` WHERE id = '2'
