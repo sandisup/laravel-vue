@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    public function _construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,19 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('admin.member.index');
+         return view('admin.member');   
+    }
+
+    public function api()
+    {
+        $members = Member::all();
+        $datatables = datatables()->of($members)
+                        ->addColumn ('date', function($member) {
+                            return convert_date($member->created_at);
+                        })
+                        ->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**

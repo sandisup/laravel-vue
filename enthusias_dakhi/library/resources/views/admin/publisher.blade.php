@@ -17,8 +17,8 @@
                 <div class="card-header">
                     <a href="#" @click="addData()" class="btn btn-sm btn-primary pull=right">Create New Publisher</a>
                 </div>
-                <div class="card-body table-responsive p-0">
-                <table id="datatable" class="table table-hover text-nowrap table-bordered">
+                <div class="card-body">
+                <table id="datatable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                             <th>N0</th>

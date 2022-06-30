@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Author')
+@section('header', 'Member')
 
 @section('css')
   <!-- DataTables -->
@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull=right">Create New Author</a>
+                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull=right">Create New Member</a>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-striped table-bordered">
@@ -41,7 +41,7 @@
             <form method="post" :action="actionUrl" autocomplete="off">
               <div class="modal-header">
 
-                <h3 class="modal-title">Author</h3>
+                <h3 class="modal-title">Member</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -97,8 +97,8 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
-    var actionUrl = '{{ url('authors') }}';
-    var apiUrl = '{{ url('api/authors') }}';
+    var actionUrl = '{{ url('members') }}';
+    var apiUrl = '{{ url('api/members') }}';
 
     var columns = [
         {data: 'DT_RowIndex', class: 'text-center', orderable: true},
@@ -109,7 +109,7 @@
         {data: 'date', class: 'text-center', orderable: true},
         {render: function (index, row, data, meta) {
         //    return 
-        //      <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+        //  <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
         //      Edit
         //      </a>
         //      <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
@@ -144,6 +144,27 @@
                     });
                 },
             }
+            addData() {
+                    this.data = {};
+                    this.actionUrl = '{{ url('authors') }}';
+                    this.editStatus = false;
+                    $('#modal-default').modal();
+                },
+            editData(data) {
+                    this.data = data;
+                    this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
+                    this.editStatus = true;
+                    $('#modal-default').modal();
+                },
+            deleteData(id) {
+                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
+                    if (confirm("Are you sure ?")) {
+                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>
+                        {
+                            location.reload();
+                        });
+                    }
+                }
         });
 </script>
 

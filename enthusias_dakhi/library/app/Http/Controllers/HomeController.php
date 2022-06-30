@@ -138,7 +138,7 @@ class HomeController extends Controller
                // ->where('members.crated_at','LIKE','%'.'-06-'.'%')
                 ->get();
 
-        return $data11;
+        //return $data11;
         return view('home');
     }
 }

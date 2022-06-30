@@ -18,9 +18,20 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::with('books')->get();
-        // return $catalogs;
-         return view('admin.author', compact('authors'));   
+         return view('admin.author');   
+    }
+
+    public function api()
+    {
+        $authors = Author::all();
+
+        foreach ($authors as $key => $author) {
+            $author-> date = convert_date($author->cretaed_at);
+        }
+
+        $datatables = datatables()->of($authors)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
