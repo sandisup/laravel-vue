@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/homes', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
