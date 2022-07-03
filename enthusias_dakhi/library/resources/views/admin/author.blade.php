@@ -107,14 +107,8 @@
         {data: 'phone_number', class: 'text-center', orderable: true},
         {data: 'address', class: 'text-center', orderable: true},
         {data: 'date', class: 'text-center', orderable: true},
-        {render: function (index, row, data, meta) {
-        //    return 
-        //      <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
-        //      Edit
-        //      </a>
-        //      <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
-        //      Delete
-        //      </a>;
+        {data:'',render: function (index, row, data, meta) {
+           return `<a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event,${meta.row})">Edit</a><a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Delete </a>`;
         }, orderable: false, width: '200px', class: 'text-center'},
         ];
 
@@ -143,6 +137,28 @@
                         _this.datas = _this.table.ajax.json().data;
                     });
                 },
+                addData() {
+                    this.data = {};
+                    this.actionUrl = '{{ url('authors') }}';
+                    this.editStatus = false;
+                    $('#modal-default').modal();
+                },
+                editData(event,row) {
+                    console.log(this.datas);
+                    this.data = this.datas[row];
+                    this.actionUrl = '{{ url('authors') }}'+'/'+this.data.id;
+                    this.editStatus = true;
+                    $('#modal-default').modal();
+                },
+                deleteData(event,id) {
+                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
+                    if (confirm("Are you sure ?")) {
+                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>
+                        {
+                            location.reload();
+                        });
+                    }
+                }
             }
         });
 </script>
