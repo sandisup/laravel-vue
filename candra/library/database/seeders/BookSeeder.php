@@ -35,7 +35,7 @@ class BookSeeder extends Seeder
             // $book->publisher_id = rand(1,20);
             // $book->author_id = rand(1,20);
             // $book->catalog_id = rand(1,4);   
-            // $publisher_id = optional($publisher)->id;
+            $publisher_id = optional($publisher)->id;
             // $author_id = optional($author)->id;
             // $catalog_id = optional($catalog)->id;
             $book->publisher_id = $publisher;
