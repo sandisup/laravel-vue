@@ -18,7 +18,7 @@
             
             <div class="card-body table-responsive p-0">
              <table class="table table-hover text-nowrap">
-            <thead>
+            <thead class="text-center">
             <tr>
                 <th>No.</th>
                 <th>Name</th>
@@ -27,7 +27,7 @@
                 <th>Update at</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody  class="text-center">
             @foreach ($catalogs as $key=> $catalog)
             <tr>
                 <td>{{ $key+1 }}.</td>
@@ -40,5 +40,5 @@
             </tbody>
             </table>
             </div>
-</div>
+    </div>
 @endsection

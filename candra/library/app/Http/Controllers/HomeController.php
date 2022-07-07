@@ -126,7 +126,7 @@ class HomeController extends Controller
                 ->whereMonth('created_at', '=', '7')
                 ->get();
 
-        return $data13;
+        // return $data13;
 
         // User to Member
         // $members = Member::all(); //Memanggil semua data di model Member
@@ -182,6 +182,6 @@ class HomeController extends Controller
         // $books = Book::with('transactionDetail')->get();
         // return $books;
 
-        // return view('home');
+        return view('home');
     }
 }
