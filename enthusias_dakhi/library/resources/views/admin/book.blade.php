@@ -140,15 +140,21 @@
             this.editStatus = false;
             $('#modal-default').modal();
         },
-        editData(book) {
+        editData(book, id) {
             this.book = book;
             this.actionUrl = '{{ url('books') }}'+'/'+book.id;
             this.editStatus = true;
             $('#modal-default').modal();
         },
         deleteData(id) {
-            console.log(id);
-        },
+                    this.actionUrl = '{{ url('books') }}'+'/'+id;
+                    if (confirm("Are you sure ?")) {
+                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>
+                        {
+                           location.reload();
+                        });
+                    }
+                },
         numberWithSpaces(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
