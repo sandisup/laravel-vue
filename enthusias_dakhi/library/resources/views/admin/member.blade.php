@@ -23,6 +23,7 @@
                             <tr>
                             <th width="30px">N0.</th>
                             <th class='text-center'>Name</th>
+                            <th class='text-center'>Gender</th>
                             <th class='text-center'>Email</th>
                             <th class='text-center'>Phone Number</th>
                             <th class='text-center'>Address</th>
@@ -38,7 +39,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
           <div class="modal-content">
-            <form method="post" :action="actionUrl" autocomplete="off">
+            <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
               <div class="modal-header">
 
                 <h3 class="modal-title">Member</h3>
@@ -54,6 +55,10 @@
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" name="name" :value="data.name" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <input type="text" class="form-control" name="gender" :value="data.gender" required="">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
@@ -103,18 +108,19 @@
     var columns = [
         {data: 'DT_RowIndex', class: 'text-center', orderable: true},
         {data: 'name', class: 'text-center', orderable: true},
+        {data: 'gender', class: 'text-center', orderable: true},
         {data: 'email', class: 'text-center', orderable: true},
         {data: 'phone_number', class: 'text-center', orderable: true},
         {data: 'address', class: 'text-center', orderable: true},
         {data: 'date', class: 'text-center', orderable: true},
         {render: function (index, row, data, meta) {
-        //    return 
-        //  <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
-        //      Edit
-        //      </a>
-        //      <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
-        //      Delete
-        //      </a>;
+            return `
+              <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+              Edit
+              </a>
+              <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+              Delete
+              </a>`;
         }, orderable: false, width: '200px', class: 'text-center'},
         ];
 
@@ -143,28 +149,37 @@
                         _this.datas = _this.table.ajax.json().data;
                     });
                 },
-            }
-            addData() {
+                addData() {
                     this.data = {};
-                    this.actionUrl = '{{ url('authors') }}';
+                    this.actionUrl = '{{ url('members') }}';
                     this.editStatus = false;
                     $('#modal-default').modal();
                 },
-            editData(data) {
-                    this.data = data;
-                    this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
+                editData(event, row) {
+                    this.data = this.datas[row];
                     this.editStatus = true;
                     $('#modal-default').modal();
                 },
-            deleteData(id) {
-                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
+                deleteData(event,id) {
                     if (confirm("Are you sure ?")) {
-                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>
+                        $(event.target).parents('tr').remove();
+                        axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response =>
                         {
-                            location.reload();
+                           alert('Data has been removed');
                         });
                     }
-                }
+                },
+                submitForm(event, id) {
+                    event.preventDefault();
+                    const _this = this;
+                    var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response=> {
+                        $('#modal-default').modal('hide');
+                        _this.table.ajax.reload();
+                    }); 
+                },
+            }
+
         });
 </script>
 

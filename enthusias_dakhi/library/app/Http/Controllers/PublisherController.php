@@ -18,9 +18,20 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::with('books')->get();
-        // return $catalogs;
-         return view('admin.publisher', compact('publishers'));   
+         return view('admin.publisher');   
+    }
+
+    public function api()
+    {
+        $publishers = Publisher::all();
+
+        foreach ($publishers as $key => $publisher) {
+            $publisher-> date = convert_date($publisher->cretaed_at);
+        }
+
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -30,7 +41,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('admin.publisher.create');
+        //
     }
 
     /**
@@ -42,13 +53,13 @@ class PublisherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' , 'email', 'phone_number', 'address'    => ['required'],
+            'name' => ['required'],
+            'phone_number'  => ['required'],
+            'email' => ['required'],
+            'address' => ['required'],
+
         ]);
-        //$catalog = new catalog;
-       // $catalog->name = $request->name;
-        //$catalog->save();
-
-
+        
         publisher::create($request->all());
 
         return redirect('publishers');  
@@ -86,12 +97,16 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $this->validate($request,[
-            'name' , 'email', 'phone_number', 'address'    => ['required'],
-        ]);
+            'name' => ['required'],
+            'phone_number'  => ['required'],
+            'email' => ['required'],
+            'address' => ['required'],
 
+        ]);
+        
         $publisher->update($request->all());
 
-        return redirect('publishers');   
+        return redirect('publishers');  
     }
 
     /**
@@ -103,7 +118,5 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $publisher->delete();
-
-        return redirect('publishers');
     }
 }

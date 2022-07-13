@@ -38,7 +38,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
           <div class="modal-content">
-            <form method="post" :action="actionUrl" autocomplete="off">
+            <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
               <div class="modal-header">
 
                 <h3 class="modal-title">Author</h3>
@@ -101,20 +101,20 @@
     var apiUrl = '{{ url('api/authors') }}';
 
     var columns = [
-        {data: 'DT_RowIndex', class: 'text-center', orderable: true},
-        {data: 'name', class: 'text-center', orderable: true},
-        {data: 'email', class: 'text-center', orderable: true},
+        {data: 'DT_RowIndex', class: 'text-center', orderable: false},
+        {data: 'name', class: 'text-center', orderable: false},
+        {data: 'email', class: 'text-center', orderable: false},
         {data: 'phone_number', class: 'text-center', orderable: true},
         {data: 'address', class: 'text-center', orderable: true},
         {data: 'date', class: 'text-center', orderable: true},
         {render: function (index, row, data, meta) {
-        //    return 
-        //      <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
-        //      Edit
-        //      </a>
-        //      <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
-        //      Delete
-        //      </a>;
+            return `
+              <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+              Edit
+              </a>
+              <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+              Delete
+              </a>`;
         }, orderable: false, width: '200px', class: 'text-center'},
         ];
 
@@ -138,10 +138,39 @@
                             url: _this.apiUrl,
                             type: 'GET',
                         },
-                        columns: columns
+                        columns
                     }).on('xhr', function () {
                         _this.datas = _this.table.ajax.json().data;
                     });
+                },
+                addData() {
+                    this.data = {};
+                    this.actionUrl = '{{ url('authors') }}';
+                    this.editStatus = false;
+                    $('#modal-default').modal();
+                },
+                editData(event, row) {
+                    this.data = this.datas[row];
+                    this.editStatus = true;
+                    $('#modal-default').modal();
+                },
+                deleteData(event,id) {
+                    if (confirm("Are you sure ?")) {
+                        $(event.target).parents('tr').remove();
+                        axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response =>
+                        {
+                           alert('Data has been removed');
+                        });
+                    }
+                },
+                submitForm(event, id) {
+                    event.preventDefault();
+                    const _this = this;
+                    var actionUrl = ! this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
+                    axios.post(actionUrl, new FormData($(event.target)[0])).then(response=> {
+                        $('#modal-default').modal('hide');
+                        _this.table.ajax.reload();
+                    }); 
                 },
             }
         });

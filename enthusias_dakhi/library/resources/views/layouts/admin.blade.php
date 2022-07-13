@@ -192,6 +192,14 @@
               </p>
             </a>
             </li>
+            <li class="nav-item">
+            <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transactions') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Transaction
+              </p>
+            </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
