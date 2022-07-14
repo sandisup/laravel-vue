@@ -107,4 +107,6 @@ class CatalogController extends Controller
 
         return redirect('catalogs');
     }
+
+    
 }

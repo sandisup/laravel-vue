@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/test_spatie', [App\Http\Controllers\HomeController::class, 'test_spatie']);
 
 Route::get('/catalogs', [App\Http\Controllers\CatalogController::class, 'index']);
 Route::get('/catalogs/create', [App\Http\Controllers\CatalogController::class, 'create']);
@@ -46,3 +47,4 @@ Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
 Route::get('/api/books', [App\Http\Controllers\BookController::class, 'api']);
 Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);
+

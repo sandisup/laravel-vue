@@ -3,6 +3,7 @@
 
 @section('content')
 
+@role('petugas')
 <component id="controller">
     <div class="card">
         <div class="card-header">
@@ -45,4 +46,5 @@
         </div>
     </div>
 </component>
+@endrole
 @endsection
