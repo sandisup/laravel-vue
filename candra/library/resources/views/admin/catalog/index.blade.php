@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Data Catalog</h3>
+                    <a href="{{ url('catalogs/create') }}" class="btn btn-sm btn-primary pull right">Create New Catalog</a>
                     <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                     <div class="input-group-append">
@@ -25,6 +25,7 @@
                 <th>Total Book</th>
                 <th>Created at</th>
                 <th>Update at</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody  class="text-center">
@@ -33,8 +34,16 @@
                 <td>{{ $key+1 }}.</td>
                 <td>{{ $catalog->name }}</td>
                 <td>{{ count($catalog->books)}} </td>
-                <td>{{ date('H:m:s - d M Y', strtotime($catalog->created_at)) }} </td>
-                <td>{{ date('H:m:s - d M Y', strtotime($catalog->updated_at))}} </td>
+                <td>{{ date('H:i:s - d M Y', strtotime($catalog->created_at)) }} </td>
+                <td>{{ date('H:i:s - d M Y', strtotime($catalog->updated_at))}} </td>
+                <td>
+                    <form action="{{ url('catalogs', ['id'=>$catalog->id]) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-info btn-sm">Edit</a>
+                        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure ?')">                    
+                    </form>
+                </td>
             </tr>
             @endforeach
             </tbody>
