@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+    public function __construct()
+    {  
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class AuthorController extends Controller
     {
         $authors = Author::all();
 
-        return view('admin.author.index', compact('authors'));
+        return view('admin.author', compact('authors'));
     }
 
     /**
@@ -37,7 +41,16 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=> ['required'],
+            'email' => ['required'],
+            'phone_number'=> ['required'],
+            'address' => ['required'],
+        ]);
+
+        Author::create($request->all());
+        return redirect('authors');
+        // return $request;
     }
 
     /**

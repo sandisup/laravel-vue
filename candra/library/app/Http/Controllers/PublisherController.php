@@ -46,6 +46,7 @@ class PublisherController extends Controller
         Publisher::create($request->all());
 
         return redirect('publishers');
+        // return $request;
     }
 
     /**
