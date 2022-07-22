@@ -1,16 +1,17 @@
 @extends('layouts.admin')
-@section('header','Author')
+@section('header','Publisher')
 @section('css')
-    
+
 @endsection
-    
+
 @section('content')
+
 <div id="controller">
     <div class="row">
         <div class="col-12">
             <div class="card">
             <div class="card-header">
-                <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Author</a>
+                <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Publisher</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -22,24 +23,20 @@
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Address</th>
-                    {{-- <th>Created at</th>
-                    <th>Update at</th> --}}
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach ($authors as $key=>$author)
+                    @foreach ($publishers as $key=>$publisher)
                 <tr>
                     <td>{{ $key+1 }}.</td>
-                    <td>{{ $author->name }}</td>
-                    <td>{{ $author->email }}</td>
-                    <td>{{ $author->phone_number }}</td>
-                    <td>{{ $author->address }}</td>
-                    {{-- <td>{{ date('H:i:s - d M Y', strtotime($author->created_at)) }} </td>
-                    <td>{{ date('H:i:s - d M Y', strtotime($author->updated_at))}} </td> --}}
+                    <td>{{ $publisher->name }}</td>
+                    <td>{{ $publisher->email }}</td>
+                    <td>{{ $publisher->phone_number }}</td>
+                    <td>{{ $publisher->address }}</td>
                     <td class="text-center" style="width: 10vw">
-                        <a href="#" @click="editData({{ $author }})" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="#" @click="editData({{ $publisher }})" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
                     @endforeach
@@ -52,7 +49,7 @@
                 <div class="modal-content">
                     <form method="post" :action="actionUrl" autocomplete="off">
                         <div class="modal-header">
-                        <h4 class="modal-title">Auhtor</h4>
+                        <h4 class="modal-title">Publisher</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -93,52 +90,53 @@
                 <!-- /.modal-dialog -->
     </div>
 </div>
+    
 @endsection
 
 @section('js')
-    <script type="text/javascript">
-        var controller = new Vue({
-            el: '#controller',
-            data : {
-                data : {},
-                actionUrl : '{{ url('authors') }}',
-                editStatus : false
+<script type="text/javascript">
+    var controller = new Vue({
+        el: '#controller',
+        data : {
+            data : {},
+            actionUrl : '{{ url('publishers') }}',
+            editStatus : false
+        },
+        mounted: function(){
+
+        },
+        methods: {
+            addData(){
+                // console.log('add Data');
+                this.data = {}; //fungsi {} agar nilainya kosong
+                this.actionUrl = '{{ url('publishers') }}';
+
+                // untuk edit agar tidak terpakai di addData
+                this.editStatus = false;
+                
+                $('#modal-default').modal();
+
+                
             },
-            mounted: function(){
+            editData(data){
+                // console.log(data);
+                this.data = data; //fungsi data agar nilainya terambil dari data di db
+                this.actionUrl = '{{ url('publishers') }}'+'/'+data.id;
 
+                this.editStatus = true;
+
+                $('#modal-default').modal();
             },
-            methods: {
-                addData(){
-                    // console.log('add Data');
-                    this.data = {}; //fungsi {} agar nilainya kosong
-                    this.actionUrl = '{{ url('authors') }}';
-
-                    // untuk edit agar tidak terpakai di addData
-                    this.editStatus = false;
-                    
-                    $('#modal-default').modal();
-
-                    
-                },
-                editData(data){
-                    // console.log(data);
-                    this.data = data; //fungsi data agar nilainya terambil dari data di db
-                    this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
-
-                    this.editStatus = true;
-
-                    $('#modal-default').modal();
-                },
-                deleteData(id){
-                    // console.log(id);
-                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
-                    if(confirm("Are you sure ?")){
-                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>{
-                            location.reload();
-                        });
-                    }
+            deleteData(id){
+                // console.log(id);
+                this.actionUrl = '{{ url('publishers') }}'+'/'+id;
+                if(confirm("Are you sure ?")){
+                    axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>{
+                        location.reload();
+                    });
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
 @endsection

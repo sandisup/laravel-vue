@@ -41,11 +41,11 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name'=> ['required'],
-            'email' => ['required'],
-            'phone_number'=> ['required'],
-            'address' => ['required'],
+        $this->validate($request, [
+            'name'  => 'required|alpha|max:64',
+            'email'  => 'required',
+            'phone_number'  => 'required|numeric',
+            'address'  => 'required|max:255'
         ]);
 
         Author::create($request->all());
@@ -84,7 +84,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request,[
+            'name'=> ['required'],
+            'email' => ['required'],
+            'phone_number'=> ['required'],
+            'address' => ['required'],
+        ]);
+
+        $author->update($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -95,6 +103,6 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
     }
 }
