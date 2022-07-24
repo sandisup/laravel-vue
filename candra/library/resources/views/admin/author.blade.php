@@ -30,24 +30,24 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                {{-- <tbody>
                     @foreach ($authors as $key=>$author)
                 <tr>
                     <td>{{ $key+1 }}.</td>
                     <td>{{ $author->name }}</td>
                     <td>{{ $author->email }}</td>
                     <td>{{ $author->phone_number }}</td>
-                    <td>{{ $author->address }}</td>
+                    <td>{{ $author->address }}</td> --}}
                     {{-- <td>{{ date('H:i:s - d M Y', strtotime($author->created_at)) }} </td>
                     <td>{{ date('H:i:s - d M Y', strtotime($author->updated_at))}} </td> --}}
-                    <td class="text-center" style="width: 10vw">
+                    {{-- <td class="text-center" style="width: 10vw">
                         <a href="#" @click="editData({{ $author }})" class="btn btn-primary btn-sm">Edit</a>
                         <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
                     @endforeach
                 
-                </tbody>
+                </tbody> --}}
             </table>
             </div>
             <div class="modal fade" id="modal-default">
@@ -112,7 +112,91 @@
     <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
     <script type="text/javascript">
+        var actionUrl = '{{ url('authors') }}';
+        // var apiUrl = '{{ url('api/authors') }} ';
+        var apiUrl = 'api/authors';
+
+        var columns = [
+            // sesuaikan dengan api/author
+            {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+            {data: 'name', class: 'text-center', orderable: true},
+            {data: 'email', class: 'text-center', orderable: true},
+            {data: 'phone_number', class: 'text-center', orderable: true},
+            {data: 'address', class: 'text-center', orderable: true},
+            {render: function (index, row, data, meta)
+                {
+                    return `
+                        <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">Edit</a>
+                        <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id}">Delete</a>
+                    `;
+                }, orderable: false, width: '200px', class: 'text-center'
+            },
+        ];
+
+        var controller = new Vue({
+            el: '#controller',
+            data : {
+                datas: [], //menyimpan semua data diauthor
+                data: {},
+                actionUrl,
+                apiUrl,
+                editStatus: false,
+            },
+            mounted: function(){
+                this.datatable();
+            },
+            methods: {
+                datatable(){
+                    const _this = this;
+                    _this.table = $('#datatable').DataTable({
+                        ajax:{
+                            // url: _this.apiUrl,
+                            url: apiUrl,
+                            type: 'GET',
+                        },
+                        columns: columns
+                    }).on('xhr',function(){
+                        _this.datas = _this.table.ajax.json().data;
+                    });
+                },
+                addData(){
+                    // console.log('add Data');
+                    this.data = {}; //fungsi {} agar nilainya kosong
+                    this.actionUrl = '{{ url('authors') }}';
+
+                    // untuk edit agar tidak terpakai di addData
+                    this.editStatus = false;
+                    
+                    $('#modal-default').modal();
+
+                    
+                },
+                editData(data){
+                    // console.log(data);
+                    this.data = data; //fungsi data agar nilainya terambil dari data di db
+                    this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
+
+                    this.editStatus = true;
+
+                    $('#modal-default').modal();
+                },
+                deleteData(id){
+                    // console.log(id);
+                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
+                    if(confirm("Are you sure ?")){
+                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>{
+                            location.reload();
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+
+
+    {{-- <script type="text/javascript">
         // Script datatable dan search 
         $(function () {
             //Jika ingin mengatur jumlah entries tampilan tanpa setting
@@ -179,5 +263,5 @@
                 }
             }
         });
-    </script>
+    </script> --}}
 @endsection

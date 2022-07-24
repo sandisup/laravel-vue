@@ -37,6 +37,8 @@ Route::get('/transaction-details', [App\Http\Controllers\TransactionDetailContro
 Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
 Route::resource('/authors', App\Http\Controllers\AuthorController::class);
 Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
+
+Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
 // Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
 // Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create']);
 // Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store']);

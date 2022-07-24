@@ -32,15 +32,15 @@ class BookSeeder extends Seeder
             $book->title = $faker->name;
             $book->year = rand(2010, 2022);
 
-            // $book->publisher_id = rand(1,20);
-            // $book->author_id = rand(1,20);
-            // $book->catalog_id = rand(1,4);   
-            $publisher_id = optional($publisher)->id;
+            $book->publisher_id = rand(1,20);
+            $book->author_id = rand(1,20);
+            $book->catalog_id = rand(5,12);
+            // $publisher_id = optional($publisher)->id;
             // $author_id = optional($author)->id;
             // $catalog_id = optional($catalog)->id;
-            $book->publisher_id = $publisher;
-            $book->author_id = $author;
-            $book->catalog_id = $catalog;
+            // $book->publisher_id = $publisher;
+            // $book->author_id = $author;
+            // $book->catalog_id = $catalog;
 
             $book->qty = rand(10,20);
             $book->price = rand(10000, 20000);
