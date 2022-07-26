@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+    public function __construct()
+    {  
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,17 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('admin.author.index');
+        $authors = Author::all();
+
+        return view('admin.author');
+    }
+
+    public function api()
+    {
+        $authors = Author::all();
+        $datatables = datatables()->of($authors)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -35,7 +49,16 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required|alpha|max:64',
+            'email'  => 'required',
+            'phone_number'  => 'required|numeric',
+            'address'  => 'required|max:255'
+        ]);
+
+        Author::create($request->all());
+        return redirect('authors');
+        // return $request;
     }
 
     /**
@@ -69,7 +92,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $this->validate($request,[
+            'name'=> ['required'],
+            'email' => ['required'],
+            'phone_number'=> ['required'],
+            'address' => ['required'],
+        ]);
+
+        $author->update($request->all());
+        return redirect('authors');
     }
 
     /**
@@ -80,6 +111,6 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
     }
 }
