@@ -53,7 +53,8 @@
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" :action="actionUrl" autocomplete="off">
+                    {{-- submit form berfungsi membuat crud tanpa loading page --}}
+                    <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                         <div class="modal-header">
                         <h4 class="modal-title">Auhtor</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -129,71 +130,13 @@
                 {
                     return `
                         <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">Edit</a>
-                        <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id}">Delete</a>
+                        <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Delete</a>
                     `;
                 }, orderable: false, width: '200px', class: 'text-center'
             },
         ];
-
-        var controller = new Vue({
-            el: '#controller',
-            data : {
-                datas: [], //menyimpan semua data diauthor
-                data: {},
-                actionUrl,
-                apiUrl,
-                editStatus: false,
-            },
-            mounted: function(){
-                this.datatable();
-            },
-            methods: {
-                datatable(){
-                    const _this = this;
-                    _this.table = $('#datatable').DataTable({
-                        ajax:{
-                            // url: _this.apiUrl,
-                            url: apiUrl,
-                            type: 'GET',
-                        },
-                        columns: columns
-                    }).on('xhr',function(){
-                        _this.datas = _this.table.ajax.json().data;
-                    });
-                },
-                addData(){
-                    // console.log('add Data');
-                    this.data = {}; //fungsi {} agar nilainya kosong
-                    this.actionUrl = '{{ url('authors') }}';
-
-                    // untuk edit agar tidak terpakai di addData
-                    this.editStatus = false;
-                    
-                    $('#modal-default').modal();
-
-                    
-                },
-                editData(data){
-                    // console.log(data);
-                    this.data = data; //fungsi data agar nilainya terambil dari data di db
-                    this.actionUrl = '{{ url('authors') }}'+'/'+data.id;
-
-                    this.editStatus = true;
-
-                    $('#modal-default').modal();
-                },
-                deleteData(id){
-                    // console.log(id);
-                    this.actionUrl = '{{ url('authors') }}'+'/'+id;
-                    if(confirm("Are you sure ?")){
-                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response=>{
-                            location.reload();
-                        });
-                    }
-                }
-            }
-        });
     </script>
+    <script src="{{ asset('js/data.js') }} "></script>
 
 
     {{-- <script type="text/javascript">

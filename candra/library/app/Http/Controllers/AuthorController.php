@@ -18,7 +18,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::all();
+        // $authors = Author::all();  
 
         return view('admin.author');
     }
@@ -50,10 +50,10 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required|alpha|max:64',
+            'name'  => 'required',
             'email'  => 'required',
-            'phone_number'  => 'required|numeric',
-            'address'  => 'required|max:255'
+            'phone_number'  => 'required',
+            'address'  => 'required'
         ]);
 
         Author::create($request->all());
@@ -93,10 +93,10 @@ class AuthorController extends Controller
     public function update(Request $request, Author $author)
     {
         $this->validate($request,[
-            'name'=> ['required'],
-            'email' => ['required'],
-            'phone_number'=> ['required'],
-            'address' => ['required'],
+            'name'=> 'required',
+            'email' => 'required',
+            'phone_number'=> 'required',
+            'address' => 'required',
         ]);
 
         $author->update($request->all());

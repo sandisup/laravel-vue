@@ -18,10 +18,17 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::all();
-        return view('admin.publisher', compact('publishers'));
+        // $publishers = Publisher::all();
+        return view('admin.publisher');
     }
 
+    public function api()
+    {
+        $publishers = Publisher::all();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,10 +48,10 @@ class PublisherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required|alpha|max:64',
+            'name'  => 'required',
             'email'  => 'required',
-            'phone_number'  => 'required|numeric',
-            'address'  => 'required|max:255'
+            'phone_number'  => 'required',
+            'address'  => 'required'
         ]);
 
         Publisher::create($request->all());
@@ -85,10 +92,10 @@ class PublisherController extends Controller
     public function update(Request $request, Publisher $publisher)
     {
         $this->validate($request,[
-            'name'=> ['required'],
-            'email' => ['required'],
-            'phone_number'=> ['required'],
-            'address' => ['required'],
+            'name'=> 'required',
+            'email' => 'required',
+            'phone_number'=> 'required',
+            'address' => 'required',
         ]);
 
         $publisher->update($request->all());

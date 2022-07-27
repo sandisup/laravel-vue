@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header','Publisher')
+@section('header', 'Member')
 @section('css')
     <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -8,13 +8,12 @@
 @endsection
 
 @section('content')
-
 <div id="controller">
     <div class="row">
         <div class="col-12">
             <div class="card">
             <div class="card-header">
-                <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Publisher</a>
+                <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create New Member</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -23,11 +22,10 @@
                 <tr class="text-center">
                     <th>No.</th>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Gender</th>
                     <th>Phone Number</th>
                     <th>Address</th>
-                    {{-- <th>Created at</th>
-                    <th>Update at</th> --}}
+                    <th>Email</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -39,7 +37,7 @@
                     {{-- submit form berfungsi membuat crud tanpa loading page --}}
                     <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                         <div class="modal-header">
-                        <h4 class="modal-title">Publisher</h4>
+                        <h4 class="modal-title">Member</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -55,8 +53,8 @@
                                 <input type="text" class="form-control" name="name" :value="data.name" required="">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" class="form-control" name="email" :value="data.email" required="">
+                                <label>Gender</label>
+                                <input type="text" class="form-control" name="gender" :value="data.gender" required="">
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
@@ -65,6 +63,10 @@
                             <div class="form-group">
                                 <label>Address</label>
                                 <input type="text" class="form-control" name="address" :value="data.address" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="email" :value="data.email" required="">
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -80,7 +82,6 @@
                 <!-- /.modal-dialog -->
     </div>
 </div>
-    
 @endsection
 
 @section('js')
@@ -97,19 +98,20 @@
     <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-    
+
     <script type="text/javascript">
-        var actionUrl = '{{ url('publishers') }}';
-        // var apiUrl = '{{ url('api/publishers') }} ';
-        var apiUrl = 'api/publishers';
+        var actionUrl = '{{ url('members') }}';
+        // var apiUrl = '{{ url('api/members') }} ';
+        var apiUrl = 'api/members';
 
         var columns = [
             // sesuaikan dengan api/author
             {data: 'DT_RowIndex', class: 'text-center', orderable: true},
             {data: 'name', class: 'text-center', orderable: true},
-            {data: 'email', class: 'text-center', orderable: true},
+            {data: 'gender', class: 'text-center', orderable: true},
             {data: 'phone_number', class: 'text-center', orderable: true},
             {data: 'address', class: 'text-center', orderable: true},
+            {data: 'email', class: 'text-center', orderable: true},
             {render: function (index, row, data, meta)
                 {
                     return `
