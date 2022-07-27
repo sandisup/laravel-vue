@@ -102,9 +102,9 @@ class BookController extends Controller
 
         ]);
         
-        $book->update($request->all());
+        $books->update($request->all());
 
-        return redirect('books');  
+        //return redirect('books');  
     }
 
     /**

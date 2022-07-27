@@ -182,7 +182,7 @@
 
         });
 </script>
-
+@endsection
 
 <!-- Page specific script 
 <script type="text/javascript">
@@ -229,4 +229,4 @@
             }
         });
     </script>
-@endsection -->
+ -->

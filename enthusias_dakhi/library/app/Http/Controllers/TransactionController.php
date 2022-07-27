@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Member;
+
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    public function _construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,10 +21,24 @@ class TransactionController extends Controller
     public function index()
     {
         if (auth()->user()->can('index peminjaman')) {
-            return view('admin.transaction.index');
+            $members = Member::all();     
+            return view('admin.transaction.index', compact('members'));
         } else {
             return abort('403');
         }
+    }
+
+    public function api()
+    {
+        $transactions = Transaction::all();
+
+       // foreach ($transactions as $key => $transaction) {
+         //  $transaction-> name = Member::name();  
+       // }
+
+        $datatables = datatables()->of($transactions)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -50,7 +70,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return view('admin.transaction.detail');
     }
 
     /**
@@ -61,7 +81,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        return view('admin.transaction.edit');
     }
 
     /**
