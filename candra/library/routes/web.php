@@ -38,10 +38,12 @@ Route::resource('/catalogs', App\Http\Controllers\CatalogController::class);
 Route::resource('/authors', App\Http\Controllers\AuthorController::class);
 Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
 Route::resource('/members', App\Http\Controllers\MemberController::class);
+Route::resource('/books', App\Http\Controllers\BookController::class);
 
 Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
 Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
+Route::get('/api/books', [App\Http\Controllers\BookController::class, 'api']);
 // Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
 // Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create']);
 // Route::post('/publishers', [App\Http\Controllers\PublisherController::class, 'store']);
