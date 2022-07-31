@@ -34,7 +34,7 @@
                 <td>{{ $key+1 }}.</td>
                 <td>{{ $catalog->name }}</td>
                 <td>{{ count($catalog->books)}} </td>
-                <td>{{ date('H:i:s - d M Y', strtotime($catalog->created_at)) }} </td>
+                <td>{{ convert_date($catalog->created_at) }} </td>
                 <td>{{ date('H:i:s - d M Y', strtotime($catalog->updated_at))}} </td>
                 <td>
                     <form action="{{ url('catalogs', ['id'=>$catalog->id]) }}" method="post">
