@@ -3,6 +3,6 @@
 
 @section('content')
 <div class="container">
-        Ini halaman Transaction
+        Ini Halaman Transaction
 </div>
 @endsection
