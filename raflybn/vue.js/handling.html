@@ -8,6 +8,16 @@
       <button v-on:click="counter += 1">add 1</button>
       <p>The button above has been clicked {{ counter }} times.</p>
     </div>
+
+    <div id="example-2">
+      <!-- `greet` is the name of a method defined below -->
+      <button v-on:click="greet">Greet</button>
+    </div>
+
+    <div id="example-3">
+      <button v-on:click="say('hi')">say hi</button>
+      <button v-on:click="say('what')">say what</button>
+    </div>
 </body>
 </html>
 
@@ -16,7 +26,32 @@
     var example1 = new Vue({
       el: '#example-1',
       data: {
-        counter: 0
+        counter: 0 
       }
     })
+
+     var example2 = new Vue({
+       el: '#example-2',
+       data: {
+        name:'Vue.js'
+       },
+       // define methods under 'methods' object
+       methods: {
+         greet: function (event) {
+          alert ('Hello ' + this.name + '!')
+          if (event) {
+            alert(event.target.tagName)  
+          }
+        }
+       }
+     })
+
+     new Vue({
+      el: '#example-3',
+      methods: {
+        say: function (message) {
+          alert(message)
+        }
+      }
+     })
 </script>
