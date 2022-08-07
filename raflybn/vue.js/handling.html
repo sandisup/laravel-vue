@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>event handling</title>
+    <title>Event Handling</title>
 </head>
 <body>
-    <div id="example -1">
-      <button> v-on:clicks=counter += 1">add 1</button>
-      <p>the button above has been clicked {{ counter }} times.</p>
+    <div id="example-1">
+      <button v-on:click="counter += 1">add 1</button>
+      <p>The button above has been clicked {{ counter }} times.</p>
     </div>
 </body>
 </html>
 
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script type="text/javascript"></script>
-    var example = new vue({
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script type="text/javascript">
+    var example1 = new Vue({
       el: '#example-1',
       data: {
         counter: 0
