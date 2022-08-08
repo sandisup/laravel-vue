@@ -13,7 +13,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label>Anggota</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter name" required="" value="{{ $transaction->member_id }}">
+                    <input type="text" name="name" class="form-control" placeholder="Enter name" required="" value=>
                   </div>
                   <div class="form-group">
                     <label>Tanggal</label>
