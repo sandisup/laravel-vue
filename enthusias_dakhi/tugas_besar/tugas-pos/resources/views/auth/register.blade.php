@@ -53,8 +53,11 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
+                            @if (Route::has('password.request'))
+                                        <a class="btn btn-link btn-block" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                    @endif                            </div>
                             <div class="text-center">
                                 <a class="small" href="{{ url('login') }}">Already have an account? Login!</a>
                             </div>
