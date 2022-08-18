@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('header', 'Home')
 
+@section('content')
+ini adalah halaman home
 @endsection

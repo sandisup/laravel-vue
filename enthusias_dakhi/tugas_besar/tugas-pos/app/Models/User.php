@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    use HasFactory;
+
+    public function penjualan()
+    {
+        return $this->hasMAny('App\Models\Penjualan', 'id_user');
+    }
+
 }

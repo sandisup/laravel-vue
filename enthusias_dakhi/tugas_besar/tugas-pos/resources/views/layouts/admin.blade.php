@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Tugas POS - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -43,26 +43,59 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                <a class="nav-link {{ request()->is('home') ? 'active' : '' }}" href="{{ url('home') }}">
+                    <i class="fas fa-fw fa-tachometer-alt "></i>
+                    <span>Home</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link {{ request()->is('kategori') ? 'active' : '' }}" href="{{url ('kategori') }}">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Kategori</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url ('member') }}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Member</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url ('pembelian') }}">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Pembelian</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url ('pengeluaran') }}">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Pengeluaran</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url ('penjualan') }}">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Penjualan</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url ('produk') }}">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Produk</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{url ('supplier') }}">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Supplier</span>
                 </a>
             </li>
 
@@ -78,7 +111,6 @@
 
             <!-- Main Content -->
             <div id="content">
-            @yield('content')
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -159,15 +191,25 @@
                     </ul>
 
                 </nav>
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">@yield('header') </h1>
+                        </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
+
+
                 </div>
                 <!-- /.container-fluid -->
             </div>
@@ -189,10 +231,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
 
 
     <!-- Bootstrap core JavaScript-->
