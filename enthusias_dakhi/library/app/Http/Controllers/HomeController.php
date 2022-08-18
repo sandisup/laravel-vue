@@ -181,7 +181,7 @@ class HomeController extends Controller
         //$role->givePermissionTo($permission);
         //$permission->assignRole($role);
         
-        //$user = User::where('id', 2)->first();
+        //$user = User::where('id', 3)->first();
         //$user = auth()->user();
         //$user->assignRole('petugas');
         //return $user;

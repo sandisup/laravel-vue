@@ -80,7 +80,7 @@
         {data: 'DT_RowIndex', class: 'text-center', orderable: false},
         {data: 'date_start', class: 'text-center', orderable: false},
         {data: 'date_end', class: 'text-center', orderable: false},
-        {data: 'member_id', class: 'text-center', orderable: false},
+        {data: 'name', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},

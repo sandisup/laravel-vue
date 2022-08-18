@@ -30,7 +30,7 @@ class TransactionController extends Controller
 
     public function api()
     {
-        $transactions = Transaction::all();
+        $transactions = Transaction::join('members','members.id','transactions.member_id')->get();
 
        // foreach ($transactions as $key => $transaction) {
          //  $transaction-> name = Member::name();  
