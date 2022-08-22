@@ -3,5 +3,6 @@
 @section('header', 'Member')
 
 @section('content')
-ini adalah halaman Member
+ini adalah halaman member
 @endsection
+

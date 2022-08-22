@@ -17,6 +17,13 @@ class MemberController extends Controller
         return view('admin.member');
     }
 
+    public function api()
+    {
+        $members = Member::all();
+
+        return json_encode($members);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
