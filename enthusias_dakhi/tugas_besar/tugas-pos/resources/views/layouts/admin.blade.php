@@ -110,7 +110,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Perpustakaan</span>
+      <span class="brand-text font-weight-light">Toko Kelontong</span>
     </a>
 
     <!-- Sidebar -->
@@ -121,7 +121,7 @@
           <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ auth()->user()->name}}</a>
+          <a href="#" class="d-block">{{ auth()->user()}}</a>
         </div>
       </div>
 
@@ -152,49 +152,49 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('kategori') ? 'active' : '' }}" href="{{url ('kategori') }}">
+                <a class="nav-link {{ request()->is('kategoris') ? 'active' : '' }}" href="{{url ('kategoris') }}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Kategori</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url ('member') }}">
+                <a class="nav-link {{ request()->is('members') ? 'active' : '' }}" href="{{url ('members') }}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Member</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url ('pembelian') }}">
+                <a class="nav-link {{ request()->is('pembelians') ? 'active' : '' }}" href="{{url ('pembelians') }}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Pembelian</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url ('pengeluaran') }}">
+                <a class="nav-link {{ request()->is('pengeluarans') ? 'active' : '' }}" href="{{url ('pengeluarans') }}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Pengeluaran</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url ('penjualan') }}">
+                <a class="nav-link {{ request()->is('penjualans') ? 'active' : '' }}" href="{{url ('penjualans') }}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Penjualan</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url ('produk') }}">
+                <a class="nav-link {{ request()->is('produks') ? 'active' : '' }}" href="{{url ('produks') }}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Produk</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url ('supplier') }}">
+                <a class="nav-link {{ request()->is('suppliers') ? 'active' : '' }}" href="{{url ('suppliers') }}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Supplier</span>
                 </a>

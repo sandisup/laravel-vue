@@ -42,7 +42,17 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'kode_member' => ['required'],
+            'nama'  => ['required'],
+            'alamat' => ['required'],
+            'telepon' => ['required'],
+
+        ]);
+        
+        member::create($request->all());
+
+        return redirect('members');     
     }
 
     /**
@@ -76,8 +86,15 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
-    }
+        $this->validate($request,[
+            'kode_member' => ['required'],
+            'nama'  => ['required'],
+            'alamat' => ['required'],
+            'telepon' => ['required'],
+
+        ]);
+        
+        $members->update($request->all());    }
 
     /**
      * Remove the specified resource from storage.
@@ -87,6 +104,6 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
     }
 }

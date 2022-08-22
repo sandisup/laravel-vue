@@ -9,6 +9,9 @@ class Member extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['kode_member', 'nama', 'alamat', 'telepon'];
+
+
     public function penjualan()
     {
         return $this->hasMAny('App\Models\Penjualan', 'id_member');

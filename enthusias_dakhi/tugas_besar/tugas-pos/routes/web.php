@@ -20,15 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index']);
+Route::get('/kategoris', [App\Http\Controllers\KategoriController::class, 'index']);
 //Route::get('/member', [App\Http\Controllers\MemberController::class, 'index']);
-Route::get('/pembelian', [App\Http\Controllers\PembelianController::class, 'index']);
-Route::get('/pembelian_detail', [App\Http\Controllers\PembelianDetailController::class, 'index']);
-Route::get('/pengeluaran', [App\Http\Controllers\PengeluaranController::class, 'index']);
-Route::get('/penjualan', [App\Http\Controllers\PenjualanController::class, 'index']);
-Route::get('/penjualan_detail', [App\Http\Controllers\PenjualanDetailController::class, 'index']);
-Route::get('/produk', [App\Http\Controllers\ProdukController::class, 'index']);
-Route::get('/supplier', [App\Http\Controllers\SupplierController::class, 'index']);
+Route::get('/pembelians', [App\Http\Controllers\PembelianController::class, 'index']);
+Route::get('/pembelian_details', [App\Http\Controllers\PembelianDetailController::class, 'index']);
+Route::get('/pengeluarans', [App\Http\Controllers\PengeluaranController::class, 'index']);
+Route::get('/penjualans', [App\Http\Controllers\PenjualanController::class, 'index']);
+Route::get('/penjualan_details', [App\Http\Controllers\PenjualanDetailController::class, 'index']);
+Route::get('/produks', [App\Http\Controllers\ProdukController::class, 'index']);
+Route::get('/suppliers', [App\Http\Controllers\SupplierController::class, 'index']);
 
-Route::resource('/member', App\Http\Controllers\MemberController::class);
+Route::resource('/members', App\Http\Controllers\MemberController::class);
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
