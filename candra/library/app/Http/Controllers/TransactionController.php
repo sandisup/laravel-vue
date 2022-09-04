@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Member;
+use App\Models\Book;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -21,7 +24,24 @@ class TransactionController extends Controller
 
     public function index()
     {
-        return view('admin.transaction.index');
+        $transactions = Transaction::all();
+        $books = Book::all();
+        $members = Member::all();
+        $transaction_details = TransactionDetail::all();
+        return view('admin.transaction', compact('books', 'members', 'transaction_details'));
+    }
+
+    public function api(){
+        $transactions = Transaction::
+        selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.name')
+        ->join('members', 'members.id', 'transactions.member_id')->get();
+        
+        $datatables = datatables()->of($transactions)
+        ->addColumn('status_name', function ($row){
+            return $row->status? 'Sudah Dikembalikan': 'Belum Dikembalikan';
+        })
+        ->addIndexColumn();
+        return $datatables->make(true);
     }
 
     /**
@@ -42,7 +62,19 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'member_id'  => 'required',
+            'date_start'  => 'required',
+            'date_end'  => 'required',
+            
+        ]);
+
+        $transaction = Transaction::create($request->only('member_id', 'date_start', 'date_end', 'status'));
+        $details = new TransactionDetail();
+        $details->book_id = $request->book_id;
+        $details->qty = 1;
+        $transaction->transactionDetails()->save($details);
+        return redirect('transactions');
     }
 
     /**
@@ -76,7 +108,15 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $this->validate($request, [
+            'member_id'  => 'required',
+            'date_start'  => 'required',
+            'date_end'  => 'required',
+            'status' => 'required',
+        ]);
+
+        $transaction->update($request->all());
+        return redirect('transactions');
     }
 
     /**
