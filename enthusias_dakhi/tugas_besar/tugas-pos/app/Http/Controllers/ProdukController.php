@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\Kategori;
+
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -14,8 +16,17 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        return view('admin.produk');
-    
+        $kategoris = Kategori::all();     
+        return view('admin.produk', compact('kategoris'));
+}
+
+    public function api()
+    {
+        $produks = Produk::join('kategoris','kategoris.id','produks.id_kategori')->get();
+
+        $datatables = datatables()->of($produks)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -36,7 +47,19 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nama_produk' => ['required'],
+            'merk' => ['required'],
+            'harga_beli'  => ['required'],
+            'diskon' => ['required'],
+            'harga_jual' => ['required'],
+            'stok' => ['required'],
+
+        ]);
+        
+        produk::create($request->all());
+
+        return redirect('produks'); 
     }
 
     /**
@@ -70,7 +93,19 @@ class ProdukController extends Controller
      */
     public function update(Request $request, Produk $produk)
     {
-        //
+        $this->validate($request,[
+            'nama_produk' => ['required'],
+            'merk' => ['required'],
+            'harga_beli'  => ['required'],
+            'diskon' => ['required'],
+            'harga_jual' => ['required'],
+            'stok' => ['required'],
+
+        ]);
+        
+        $produk->update($request->all());
+
+        return redirect('produks'); 
     }
 
     /**
@@ -81,6 +116,6 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        //
+        $member->delete();
     }
 }

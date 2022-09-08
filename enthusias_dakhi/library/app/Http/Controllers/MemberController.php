@@ -26,7 +26,7 @@ class MemberController extends Controller
         $members = Member::all();
 
         foreach ($members as $key => $member) {
-            $member-> date = convert_date($member->cretaed_at);
+            $member-> date = convert_date($member->created_at);
         }
 
         $datatables = datatables()->of($members)->addIndexColumn();

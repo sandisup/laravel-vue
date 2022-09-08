@@ -30,7 +30,7 @@ class TransactionController extends Controller
 
     public function api()
     {
-        $transactions = Transaction::join('members','members.id','transactions.member_id')->get();
+        $transactions = Transaction::selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.name')->join('members','members.id','transactions.member_id')->get();
 
        // foreach ($transactions as $key => $transaction) {
          //  $transaction-> name = Member::name();  

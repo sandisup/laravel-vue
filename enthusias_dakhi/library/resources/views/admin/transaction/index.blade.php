@@ -81,7 +81,7 @@
         {data: 'date_start', class: 'text-center', orderable: false},
         {data: 'date_end', class: 'text-center', orderable: false},
         {data: 'name', class: 'text-center', orderable: false},
-        {data: 'status', class: 'text-center', orderable: false},
+        {data: 'lama_pinjam', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},

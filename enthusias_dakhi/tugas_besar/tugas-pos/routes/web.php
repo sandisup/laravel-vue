@@ -27,8 +27,10 @@ Route::get('/pembelian_details', [App\Http\Controllers\PembelianDetailController
 Route::get('/pengeluarans', [App\Http\Controllers\PengeluaranController::class, 'index']);
 Route::get('/penjualans', [App\Http\Controllers\PenjualanController::class, 'index']);
 Route::get('/penjualan_details', [App\Http\Controllers\PenjualanDetailController::class, 'index']);
-Route::get('/produks', [App\Http\Controllers\ProdukController::class, 'index']);
+//Route::get('/produks', [App\Http\Controllers\ProdukController::class, 'index']);
 Route::get('/suppliers', [App\Http\Controllers\SupplierController::class, 'index']);
 
 Route::resource('/members', App\Http\Controllers\MemberController::class);
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
+Route::resource('/produks', App\Http\Controllers\ProdukController::class);
+Route::get('/api/produks', [App\Http\Controllers\ProdukController::class, 'api']);

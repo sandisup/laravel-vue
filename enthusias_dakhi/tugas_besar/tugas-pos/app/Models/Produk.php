@@ -9,14 +9,16 @@ class Produk extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nama_produk', 'merk','harga_beli', 'diskon', 'harga_jual', 'stok'];
+
     public function penjualan_details()
     {
-        return $this->hasMAny('App\Models\PenjualanDetail', 'id_produk');
+        return $this->hasMany('App\Models\PenjualanDetail', 'id_produk');
     }
 
     public function pembelian_details()
     {
-        return $this->hasMAny('App\Models\PembelianDetail', 'id_produk');
+        return $this->hasMany('App\Models\PembelianDetail', 'id_produk');
     }
 
     public function kategori()
