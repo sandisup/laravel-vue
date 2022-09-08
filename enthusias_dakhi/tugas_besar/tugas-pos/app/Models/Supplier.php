@@ -9,6 +9,9 @@ class Supplier extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nama', 'alamat', 'telepon'];
+
+
     public function pembelians()
     {
         return $this->hasMAny('App\Models\Pembelian', 'id_supplier');

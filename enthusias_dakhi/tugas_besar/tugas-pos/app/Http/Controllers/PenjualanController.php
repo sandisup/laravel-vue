@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
+use App\Models\Member;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -14,7 +17,20 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        return view('admin.penjualan');
+        $members = Member::all();     
+        $users = User::all();     
+
+        return view('admin.penjualan', compact('members', 'users')); 
+    }
+
+    public function api()
+    {
+        $penjualans = Penjualan::selectRaw('penjualans.*, members.nama, users.name')
+        ->join('members','members.id','penjualans.id_member')
+        ->join('users','users.id','penjualans.id_user')->get();
+        $datatables = datatables()->of($penjualans)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
@@ -35,7 +51,20 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'id_member' => ['required'],
+            'total_item' => ['required'],
+            'total_harga'  => ['required'],
+            'diskon' => ['required'],
+            'bayar' => ['required'],
+            'diterima' => ['required'],
+            'id_user' => ['required'],
+
+        ]);
+        
+        penjualan::create($request->all());
+
+        return redirect('penjualans'); 
     }
 
     /**
@@ -69,7 +98,21 @@ class PenjualanController extends Controller
      */
     public function update(Request $request, Penjualan $penjualan)
     {
-        //
+        $this->validate($request,[
+            'id_member' => ['required'],
+            'total_item' => ['required'],
+            'total_harga'  => ['required'],
+            'diskon' => ['required'],
+            'bayar' => ['required'],
+            'diterima' => ['required'],
+            'id_user' => ['required'],
+
+
+        ]);
+        
+        $penjualan->update($request->all());
+
+        return redirect('penjualans'); 
     }
 
     /**
@@ -80,6 +123,6 @@ class PenjualanController extends Controller
      */
     public function destroy(Penjualan $penjualan)
     {
-        //
+        $penjualan->delete();
     }
 }

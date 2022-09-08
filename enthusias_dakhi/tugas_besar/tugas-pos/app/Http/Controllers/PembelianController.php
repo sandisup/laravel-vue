@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -14,8 +15,20 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        return view('admin.pembelian');
+        $suppliers = Supplier::all();     
+        return view('admin.pembelian', compact('suppliers')); 
     }
+
+    public function api()
+    {
+        $pembelians = Pembelian::selectRaw('pembelians.*, suppliers.nama')
+        ->join('suppliers','suppliers.id','pembelians.id_supplier')->get();
+
+        $datatables = datatables()->of($pembelians)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +48,18 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'id_supplier' => ['required'],
+            'total_item' => ['required'],
+            'total_harga'  => ['required'],
+            'diskon' => ['required'],
+            'bayar' => ['required'],
+
+        ]);
+        
+        pembelian::create($request->all());
+
+        return redirect('pembelians'); 
     }
 
     /**
@@ -69,7 +93,18 @@ class PembelianController extends Controller
      */
     public function update(Request $request, Pembelian $pembelian)
     {
-        //
+        $this->validate($request,[
+            'id_supplier' => ['required'],
+            'total_item' => ['required'],
+            'total_harga'  => ['required'],
+            'diskon' => ['required'],
+            'bayar' => ['required'],
+
+        ]);
+        
+        $pembelian->update($request->all());
+
+        return redirect('pembelians'); 
     }
 
     /**
@@ -80,6 +115,6 @@ class PembelianController extends Controller
      */
     public function destroy(Pembelian $pembelian)
     {
-        //
+        $pembelian->delete();
     }
 }

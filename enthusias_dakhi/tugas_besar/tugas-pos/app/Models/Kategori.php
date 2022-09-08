@@ -9,6 +9,9 @@ class Kategori extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nama_kategori'];
+
+
     public function produks()
     {
         return $this->hasMAny('App\Models\Produk', 'id_kategori');

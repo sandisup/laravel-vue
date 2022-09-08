@@ -18,7 +18,7 @@ class ProdukController extends Controller
     {
         $kategoris = Kategori::all();     
         return view('admin.produk', compact('kategoris'));
-}
+    }
 
     public function api()
     {
@@ -116,6 +116,6 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        $member->delete();
+        $produk->delete();
     }
 }

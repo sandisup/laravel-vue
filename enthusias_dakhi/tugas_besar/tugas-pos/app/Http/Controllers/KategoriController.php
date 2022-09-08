@@ -17,6 +17,15 @@ class KategoriController extends Controller
         return view('admin.kategori');
     }
 
+    public function api()
+    {
+        $kategoris = Kategori::all();
+
+        $datatables = datatables()->of($kategoris)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +44,15 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nama_kategori' => ['required'],
+
+        ]);
+        
+        kategori::create($request->all());
+
+        return redirect('kategoris'); 
+
     }
 
     /**
@@ -69,7 +86,15 @@ class KategoriController extends Controller
      */
     public function update(Request $request, Kategori $kategori)
     {
-        //
+        $this->validate($request,[
+            'nama_kategori' => ['required'],
+
+        ]);
+        
+        $kategori->update($request->all());
+
+        return redirect('kategoris'); 
+
     }
 
     /**
@@ -80,6 +105,6 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
-        //
+        $kategori->delete();
     }
 }

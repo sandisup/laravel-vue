@@ -9,6 +9,9 @@ class Pembelian extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id_supplier', 'total_item','total_harga', 'diskon', 'bayar'];
+
+
     public function pembelian_detail()
     {
         return $this->hasOne('App\Models\PembelianDetail', 'id_pembelian');

@@ -17,6 +17,14 @@ class SupplierController extends Controller
         return view('admin.supplier');
     }
 
+    public function api()
+    {
+        $suppliers = Supplier::all();
+
+        return json_encode($suppliers);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

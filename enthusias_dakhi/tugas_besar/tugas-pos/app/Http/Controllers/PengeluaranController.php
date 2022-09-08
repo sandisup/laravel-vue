@@ -17,6 +17,15 @@ class PengeluaranController extends Controller
         return view('admin.pengeluaran');
     }
 
+    public function api()
+    {
+        $pengeluarans = Pengeluaran::all();
+
+        $datatables = datatables()->of($pengeluarans)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +44,15 @@ class PengeluaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'deskripsi' => ['required'],
+            'nominal' => ['required'],
+
+        ]);
+        
+        pengeluaran::create($request->all());
+
+        return redirect('pengeluarans'); 
     }
 
     /**
@@ -69,7 +86,14 @@ class PengeluaranController extends Controller
      */
     public function update(Request $request, Pengeluaran $pengeluaran)
     {
-        //
+        $this->validate($request,[
+            'deskripsi' => ['required'],
+            'nominal' => ['required'],
+        ]);
+        
+        $pengeluaran->update($request->all());
+
+        return redirect('pengeluarans'); 
     }
 
     /**
@@ -80,6 +104,6 @@ class PengeluaranController extends Controller
      */
     public function destroy(Pengeluaran $pengeluaran)
     {
-        //
+        $pengeluaran->delete();
     }
 }
