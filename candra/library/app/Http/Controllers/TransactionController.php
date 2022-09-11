@@ -31,15 +31,27 @@ class TransactionController extends Controller
         return view('admin.transaction', compact('books', 'members', 'transaction_details'));
     }
 
-    public function api(){
-        $transactions = Transaction::
-        selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.name')
+    public function api(Request $request)
+    {
+        if($request->status){
+            $transactions = Transaction::where('status',$request->status)->get();
+        }else {
+            $transactions = Transaction::all();
+        }
+
+        $transactions = Transaction::with('transactionDetails')
+        ->selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.*')
+        
         ->join('members', 'members.id', 'transactions.member_id')->get();
         
         $datatables = datatables()->of($transactions)
         ->addColumn('status_name', function ($row){
             return $row->status? 'Sudah Dikembalikan': 'Belum Dikembalikan';
         })
+        // Detail data buku
+        // ->addColumn('details', function ($row){
+        //     return $row->transactionDetails;
+        // })
         ->addIndexColumn();
         return $datatables->make(true);
     }
@@ -66,14 +78,18 @@ class TransactionController extends Controller
             'member_id'  => 'required',
             'date_start'  => 'required',
             'date_end'  => 'required',
-            
+            'multiple_book' => 'array'
         ]);
 
         $transaction = Transaction::create($request->only('member_id', 'date_start', 'date_end', 'status'));
-        $details = new TransactionDetail();
-        $details->book_id = $request->book_id;
-        $details->qty = 1;
-        $transaction->transactionDetails()->save($details);
+
+        foreach($request->multiple_book as $multi){
+            $details = new TransactionDetail();
+            $details->book_id = $multi;
+            $details->qty = 1;
+            $transaction->transactionDetails()->save($details);
+        }
+        
         return redirect('transactions');
     }
 

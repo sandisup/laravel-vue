@@ -18,9 +18,9 @@
                     </div>
                     <div class="col-md-2">
                         <select class="form-control" name="status">
-                            <option value="0">Filter Status</option>
-                            <option value="FALSE">Belum Dikembalikan</option>
-                            <option value="TRUE">Sudah Dikembalikan</option>
+                            <option value="2">Filter Status</option>
+                            <option value="0">Belum Dikembalikan</option>
+                            <option value="1">Sudah Dikembalikan</option>
                         </select>
                     </div>
                     <div class="col-lg-3">
@@ -48,6 +48,7 @@
                 </thead>
             </table>
             </div>
+            
             <div class="modal fade" id="modal-default">
                 <div class="modal-dialog">
                 <div class="modal-content">
@@ -83,12 +84,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-3">Buku</label>
-                                <select name="book_id" class="col-md-8">
+                                <label class="col-md-3">Book</label>
+                                <select class="select2 col-md-8" name="multiple_book[]" multiple="multiple" data-placeholder="Masukkan Buku" required>
                                     @foreach($books as $book)
-                                    <option value="{{ $book->id }}">
-                                        {{ $book->title }}
-                                    </option>
+                                        <option value="{{ $book->id }} ">
+                                            {{ $book->title }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -122,25 +123,37 @@
                 <div class="modal-content">
                     <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                         <div class="modal-header">
-                        <h4 class="modal-title">Peminjaman</h4>
+                        <h4 class="modal-title">Detail Peminjaman</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
                         <div class="modal-body">
-                            @csrf
 
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="name" :value="data.name" required="">
+                                <label class="col-md-3">Anggota</label>
+                                <label class="col-md-1">:</label>
+                                <label class="col-md-6" name="name" id="name"></label>
                             </div>
 
                             <div class="form-group">
-                                <label>Name</label>
-                                <label name="member_id" :value="data.name">
-                                    {{$member->name}}
-                                </label>
+                                <label class="col-md-3">Tanggal</label>
+                                <label class="col-md-1">:</label>
+                                <label class="col-md-6" name="date_start" id="date_start"></label>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3">Buku</label>
+                                <label class="col-md-1">:</label>
+                                <label class="col-md-6" name="title" id="title"></label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3">Status</label>
+                                <label class="col-md-1">:</label>
+                                <label class="col-md-6" name="status_name" id="status_name"></label>
+                            </div>
+
 
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -151,7 +164,6 @@
                 </div>
                 <!-- /.modal-content -->
             </div>
-            <!-- /.modal-dialog -->
             </div>
             
         </div>
@@ -238,9 +250,16 @@
                 },
                 detailData(event, row){
                     this.data = this.datas[row];
-                
-                    // this.actionUrl = '{{ url('transactions') }}'+'/'+id;
-                    // console.log(row);
+
+                    var str = this.data.name;
+                    $('#name').html(str);
+
+                    var str1 = this.data.date_start;
+                    $('#date_start').html(str1);
+
+                    var str3 = this.data.status_name;
+                    $('#status_name').html(str3);
+
                     $('#modal-primary').modal();
                 },
                 editData(event, row){
@@ -275,5 +294,23 @@
                 },
             }
         });
+    </script>
+    <script type="text/javascript">
+        $('select[name=status').on('change', function(){
+            status = $('select[name=status]').val();
+
+            if(status == 0){
+                controller.table.ajax.url(actionUrl).load();
+            } else{
+                controller.table.ajax.url(actionUrl+'?status='+status).load();
+            }
+        });
+        //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+    theme: 'bootstrap4'
+    })
     </script>
 @endsection
