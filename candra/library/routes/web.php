@@ -53,3 +53,5 @@ Route::get('/api/transactions', [App\Http\Controllers\TransactionController::cla
 // Route::get('/publishers/{publisher}/edit', [App\Http\Controllers\PublisherController::class, 'edit']);
 // Route::put('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'update']);
 // Route::delete('/publishers/{publisher}', [App\Http\Controllers\PublisherController::class, 'destroy']);
+
+Route::get('test_spatie', [App\Http\Controllers\HomeController::class, 'test_spatie']);
