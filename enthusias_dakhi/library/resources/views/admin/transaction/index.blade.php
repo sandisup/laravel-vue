@@ -82,7 +82,7 @@
         {data: 'date_end', class: 'text-center', orderable: false},
         {data: 'name', class: 'text-center', orderable: false},
         {data: 'lama_pinjam', class: 'text-center', orderable: false},
-        {data: 'status', class: 'text-center', orderable: false},
+        {data: 'book_id', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},
         {data: 'status', class: 'text-center', orderable: false},
         {render: function (index, row, data, meta) {

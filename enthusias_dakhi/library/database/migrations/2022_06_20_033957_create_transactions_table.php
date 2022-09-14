@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('book_id');
             $table->date('date_start');
             $table->date('date_end');
             $table->timestamps();
 
             $table->foreign('member_id')->references('id')->on('members');
+            $table->foreign('book_id')->references('id')->on('books');
 
         });
     }

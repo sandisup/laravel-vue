@@ -36,6 +36,15 @@ class HomeController extends Controller
         //$penjualandetails = Pembelian::with('supplier')->get();
 
         //return $penjualandetails;
-        return view('home');
-    }
+        $total_kategoris = Kategori::count();
+        $total_members = Member::count();
+        $total_pembelians = Pembelian::count();
+        $total_penjualans = Penjualan::count();
+        $total_produks = Produk::count();
+        $total_suppliers = Supplier::count();
+        
+
+        return view('home', compact('total_kategoris', 'total_members','total_pembelians', 'total_penjualans', 'total_produks','total_suppliers'));
+
+            }
 }

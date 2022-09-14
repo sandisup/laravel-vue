@@ -13,7 +13,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label>Anggota</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter name" required="">
+                    <input type="text" name="name" :value="transaction.member_id" class="form-control" placeholder="Enter name" required="">
                   </div>
                   <div class="form-group">
                     <label>Tanggal</label>
