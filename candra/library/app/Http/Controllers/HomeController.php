@@ -9,10 +9,13 @@ use App\Models\Author;
 use App\Models\Catalog;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\User;
 use Cron\MonthField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Constraint\Count;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
 {
@@ -219,5 +222,29 @@ class HomeController extends Controller
         // return $books;
 
         return view('home', compact('total_book', 'total_member', 'total_publisher', 'total_transaction', 'data_donut', 'label_donut', 'data_bar'));
+    }
+
+    public function test_spatie()
+    {
+        // Membuat roles dan permission
+        // $role = Role::create(['name' => 'kasir']);
+        // $permission = Permission::create(['name' => 'index transaction']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // membuat user terhubung ke roles
+        // $user = auth()->user();                      //memanggil user yang saat ini sedang login
+        // $user = User::where('id', 2)->first();       //meanggil user dengan id 
+        // $user->assignRole('kasir');
+        // return $user;
+
+        // menampilkan semua user dengan roles
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // menghapus roles
+        // $user = auth()->user();
+        // $user->removeRole('kasir');
     }
 }
