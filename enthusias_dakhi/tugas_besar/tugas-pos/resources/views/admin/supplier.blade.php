@@ -22,15 +22,17 @@
     <hr>
 
     <div class="row">
-        <div class="col-md-3 col-sm6 col-xs-12" v-for="supplier in filteredNama">
+    <div class="col-md-3 col-sm-6 col-12" v-for="supplier in filteredNama">
             <div class="info-box" v-on:click="editData(supplier)">
-                <div class="info-box-content">
+              <span class="info-box-icon bg-info"><i class="far fa-copy"></i></span>
+              <div class="info-box-content">
                     <span class="info-box-text h3">@{{ supplier.nama }}</span>
                     <span class="info-box-text ">@{{ supplier.alamat }}<small></small></span>
                     <span class="info-box-text ">@{{ supplier.telepon }}<small></small></span>
-                </div>
-            </div>
+              </div>
+              <!-- /.info-box-content -->
         </div>
+            <!-- /.info-box -->
     </div>
 
     <div class="modal fade" id="modal-default">

@@ -22,15 +22,35 @@
     <hr>
 
     <div class="row">
-        <div class="col-md-3 col-sm6 col-xs-12" v-for="member in filteredNama">
-            <div class="info-box" v-on:click="editData(member)">
-                <div class="info-box-content">
-                    <span class="info-box-text h3">@{{ member.nama }}</span>
-                    <span class="info-box-text ">@{{ member.alamat }}<small></small></span>
-                    <span class="info-box-text ">@{{ member.telepon }}<small></small></span>
+        <div class="col-md-4" v-for="member in filteredNama">
+            <!-- Widget: user widget style 1 -->
+            <div class="card card-widget widget-user" v-on:click="editData(member)">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-info">
+              <span class="widget-user-text h3">@{{ member.nama }}</span>
+              </div>
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-sm-6 border-right">
+                    <div class="description-block">
+                      <span class="description-text">@{{ member.alamat }}</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-6 border-right">
+                    <div class="description-block">
+                      <span class="description-text">@{{ member.telepon }}</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
                 </div>
+                <!-- /.row -->
+              </div>
             </div>
-        </div>
+            <!-- /.widget-user -->
+          </div>
     </div>
 
     <div class="modal fade" id="modal-default">
