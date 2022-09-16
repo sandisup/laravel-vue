@@ -44,8 +44,8 @@ class TransactionController extends Controller
             $transactions = Transaction::all();
         }
 
-        $transactions = Transaction::with('transactionDetails')
-        ->selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.*')
+        $transactions = Transaction::with(['transactionDetails.books'])
+        ->selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.name')
         
         ->join('members', 'members.id', 'transactions.member_id')->get();
         

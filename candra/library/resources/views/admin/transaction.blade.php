@@ -97,12 +97,12 @@
                             <div class="form-group" v-if="editStatus">
                                 <div>
                                     <label class="col-md-3">Status</label>
-                                    <input id="radio1" type="radio" name="status" :checked="data.status!=1">
+                                    <input id="radio1" type="radio" name="status" :checked="data.status!=1" value="0">
                                     <label for="radio1">Belum Dikembalikan</label>
                                 </div>
                                 <div>
                                     <label class="col-md-3"></label>
-                                    <input id="radio2" type="radio" name="status" :checked="data.status==1" >
+                                    <input id="radio2" type="radio" name="status" :checked="data.status==1" value="1">
                                     <label for="radio2">sudah Dikembalikan</label>
                                 </div>
                                 </div>
@@ -145,7 +145,7 @@
                             <div class="form-group">
                                 <label class="col-md-3">Buku</label>
                                 <label class="col-md-1">:</label>
-                                <label class="col-md-6" name="title" id="title"></label>
+                                <label class="col-md-6" name="list_buku" id="list_buku"></label>
                             </div>
 
                             <div class="form-group">
@@ -259,6 +259,15 @@
 
                     var str3 = this.data.status_name;
                     $('#status_name').html(str3);
+                    
+                    var dets = this.data.transaction_details;
+                    let text = "";
+                    dets.forEach((element) => {
+                        console.log(element.books);
+                        text += element.books.title + "<br/> "; 
+                    });
+
+                    $('#list_buku').html(text);
 
                     $('#modal-primary').modal();
                 },

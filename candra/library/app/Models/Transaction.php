@@ -12,7 +12,7 @@ class Transaction extends Model
     protected $fillable = ['member_id', 'date_start', 'date_end', 'status'];
     public function transactionDetails()
     {
-        return $this->hasOne('App\Models\TransactionDetail', 'transaction_id');
+        return $this->hasMany('App\Models\TransactionDetail', 'transaction_id');
     }
 
     public function members()
