@@ -48,6 +48,7 @@
                         <label>Nama Supplier</label>
                         <input type="text" class="form-control" name="id_supplier" :value="data.id_supplier" required="">
                     </div>
+                    
                     <div class="form-group">
                         <label>Total item</label>
                         <input type="number" class="form-control" name="total_item" :value="data.total_item" required="">

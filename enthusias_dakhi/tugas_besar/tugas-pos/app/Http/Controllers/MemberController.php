@@ -94,7 +94,8 @@ class MemberController extends Controller
 
         ]);
         
-        $members->update($request->all());    }
+        $members->update($request->all());   
+    }
 
     /**
      * Remove the specified resource from storage.

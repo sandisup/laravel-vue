@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label>Kategori</label>
-                        <input type="text" class="form-control" name="kategori" :value="data.kategori" required="">
+                        <input type="text" class="form-control" name="id_kategori" :value="data.id_kategori" required="">
                     </div>
                     <div class="form-group">
                         <label>Merk</label>

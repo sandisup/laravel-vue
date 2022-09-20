@@ -9,13 +9,14 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -106,7 +107,7 @@
   <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light-primary elevation-4">
+  <aside class="main-sidebar sidebar-light-info elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -146,56 +147,56 @@
                with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('home') ? 'active' : '' }}" href="{{ url('home') }}">
-                    <i class="fas fa-fw fa-tachometer-alt "></i>
-                    <span>Home</span>
+                  <i class="nav-icon fa-solid fa-house"></i>                    
+                  <span> Home </span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('kategoris') ? 'active' : '' }}" href="{{url ('kategoris') }}">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="nav-icon fa-solid fa-list"></i>
                     <span>Kategori</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('members') ? 'active' : '' }}" href="{{url ('members') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="nav-icon fa-solid fa-user"></i>
                     <span>Member</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('pembelians') ? 'active' : '' }}" href="{{url ('pembelians') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="nav-icon fa-solid fa-cart-shopping"></i>
                     <span>Pembelian</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('pengeluarans') ? 'active' : '' }}" href="{{url ('pengeluarans') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="nav-icon fa-solid fa-paper-plane"></i>
                     <span>Pengeluaran</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('penjualans') ? 'active' : '' }}" href="{{url ('penjualans') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="nav-icon fa-solid fa-rocket"></i>
                     <span>Penjualan</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('produks') ? 'active' : '' }}" href="{{url ('produks') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="nav-icon fa-solid fa-mug-hot"></i>
                     <span>Produk</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('suppliers') ? 'active' : '' }}" href="{{url ('suppliers') }}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="nav-icon fa-solid fa-users"></i>
                     <span>Supplier</span>
                 </a>
             </li>

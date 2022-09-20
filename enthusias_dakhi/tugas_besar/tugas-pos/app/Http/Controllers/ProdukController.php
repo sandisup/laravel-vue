@@ -48,6 +48,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'id_kategori' => ['required'],
             'nama_produk' => ['required'],
             'merk' => ['required'],
             'harga_beli'  => ['required'],
@@ -94,6 +95,7 @@ class ProdukController extends Controller
     public function update(Request $request, Produk $produk)
     {
         $this->validate($request,[
+            'id_kategori' => ['required'],
             'nama_produk' => ['required'],
             'merk' => ['required'],
             'harga_beli'  => ['required'],

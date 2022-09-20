@@ -43,7 +43,16 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nama'  => ['required'],
+            'alamat' => ['required'],
+            'telepon' => ['required'],
+
+        ]);
+        
+        supplier::create($request->all());
+
+        return redirect('suppliers'); 
     }
 
     /**
@@ -77,7 +86,14 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $this->validate($request,[
+            'nama'  => ['required'],
+            'alamat' => ['required'],
+            'telepon' => ['required'],
+
+        ]);
+        
+        $suppliers->update($request->all()); 
     }
 
     /**
@@ -88,6 +104,6 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->delete();
     }
 }
