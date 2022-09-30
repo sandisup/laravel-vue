@@ -9,7 +9,7 @@ class Penjualan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_supplier', 'total_item','total_harga', 'diskon', 'bayar', 'diterima', 'id_user'];
+    protected $fillable = ['id_member', 'total_item','total_harga', 'diskon', 'bayar', 'diterima', 'id_user'];
 
 
     public function member()

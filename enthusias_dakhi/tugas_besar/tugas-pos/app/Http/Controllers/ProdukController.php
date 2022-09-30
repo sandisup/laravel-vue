@@ -22,7 +22,8 @@ class ProdukController extends Controller
 
     public function api()
     {
-        $produks = Produk::join('kategoris','kategoris.id','produks.id_kategori')->get();
+        $produks = Produk::selectRaw('produks.*, kategoris.nama_kategori')
+        ->join('kategoris','kategoris.id','produks.id_kategori')->get();
 
         $datatables = datatables()->of($produks)->addIndexColumn();
 

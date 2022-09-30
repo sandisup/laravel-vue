@@ -20,6 +20,7 @@
                             <th class='text-center'>Total Harga</th>
                             <th class='text-center'>Diskon</th>
                             <th class='text-center'>Bayar</th>
+                            <th class='text-center'>Diterima</th>
                             <th class='text-center'>Nama User</th>
                             <th class='text-center'>Action</th>
                             </tr>
