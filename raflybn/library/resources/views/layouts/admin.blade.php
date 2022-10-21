@@ -129,7 +129,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ url('home') }}" class="nav-link" {{ request()->is('home') ? 'active' : ''}}">
+                            <a href="{{ url('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                               <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Home
@@ -137,10 +137,42 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('catalog') }}" class="nav-link" {{ request()->is('Catalog') ? 'active' : ''}}">
+                            <a href="{{ url('catalog') }}" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
                               <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     catalog
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('publisher') }}" class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
+                              <i class="nav-icon fas fa-light fa-user"></i>
+                                <p>
+                                    publisher
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('author') }}" class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+                              <i class="nav-icon fas fa-light fa-user"></i>
+                                <p>
+                                    author
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('book') }}" class="nav-link {{ request()->is('book') ? 'active' : '' }}">
+                              <i class="nav-icon fas fa-thin fa-book"></i>
+                                <p>
+                                    book
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('member') }}" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+                              <i class="nav-icon fas fa-reguler fa-user"></i>
+                                <p>
+                                    member
                                 </p>
                             </a>
                         </li>
