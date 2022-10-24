@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
 use App\Models\Supplier;
+use App\Models\Produk;
+use App\Models\PembelianDetail;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -16,7 +18,10 @@ class PembelianController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();     
-        return view('admin.pembelian', compact('suppliers')); 
+        $produks = Produk::all();     
+        $pembelian_details = PembelianDetail::all();     
+
+        return view('admin.pembelian', compact('suppliers', 'produks', 'pembelian_details')); 
     }
 
     public function api()
@@ -37,7 +42,7 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pembelian.create');
     }
 
     /**
@@ -54,10 +59,20 @@ class PembelianController extends Controller
             'total_harga'  => ['required'],
             'diskon' => ['required'],
             'bayar' => ['required'],
+            'multiple_produk' => 'array'
 
         ]);
         
-        pembelian::create($request->all());
+        $pembelian= Pembelian::create($request->all());
+
+        foreach($request->multiple_produk as $multi){
+            $details = new PembelianDetail();
+            $details->id_produk = $multi;
+            $details->harga_beli = $request->total_harga;
+            $details->subtotal = $request->total_harga*$request->total_item;
+            $details->jumlah = $request->total_item;
+            $pembelian->pembelianDetails()->save($details);
+        }
 
         return redirect('pembelians'); 
     }
@@ -68,9 +83,18 @@ class PembelianController extends Controller
      * @param  \App\Models\Pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function show(Pembelian $pembelian)
+    public function show($id)
     {
-        //
+        /**
+        $pembelians = Pembelian::all();
+        $suppliers = Supplier::all();     
+        $produks = Produk::all();    
+        $pembelian= Pembelian::findOrFail($id);
+ 
+        */
+        $pembelian = Pembelian::findOrFail($id);
+
+        return view('admin.pembelian.detail', compact('pembelian'));
     }
 
     /**
@@ -81,7 +105,7 @@ class PembelianController extends Controller
      */
     public function edit(Pembelian $pembelian)
     {
-        //
+        return view('admin.pembelian.edit');
     }
 
     /**

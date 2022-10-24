@@ -2,12 +2,20 @@
 
 @section('header', 'Pembelian')
 
+@section('css')
+    <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+@endsection
+
 @section('content')
 <div id="controller">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+                   <!-- <a href="{{ url('pembelians/create') }}" class="btn btn-sm btn-primary pull=right">Add New Pembelian</a> -->
                     <a href="#" @click="addData()" class="btn btn-sm btn-primary pull=right">Add New Pembelian</a>
                 </div>
                 <div class="card-body">
@@ -44,11 +52,29 @@
 
                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label>Nama Supplier</label>
                         <input type="text" class="form-control" name="id_supplier" :value="data.id_supplier" required="">
+                    </div>-->
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <select name="id_supplier" class="form-control">
+                            @foreach($suppliers as $supplier)
+                            <option 
+                            value="{{ $supplier->id }}">{{ $supplier->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    
+                    <div class="form-group">
+                            <label>Produk</label>
+                            <select class="select2 col-md-8" name="multiple_produk[]" multiple="multiple" data-placeholder="Masukkan Produk" required>
+                                @foreach($produks as $produk)
+                                        <option value="{{ $produk->id }} ">
+                                            {{ $produk->nama_produk }}
+                                        </option>
+                                @endforeach
+                            </select>
+                    </div>
                     <div class="form-group">
                         <label>Total item</label>
                         <input type="number" class="form-control" name="total_item" :value="data.total_item" required="">
@@ -107,6 +133,9 @@
             return `
               <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
               Edit
+              </a>
+              <a href="{{ url('pembelians/${data.id}/detail') }}" class="btn btn-warning btn-sm">
+              Detail
               </a>
               <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
               Delete
@@ -172,4 +201,14 @@
 
         });
 </script>
+
+<script type="text/javascript">
+
+        //Initialize Select2 Elements
+    $('.select2').select2()
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+    theme: 'bootstrap4'
+    })
+    </script>
 @endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Penjualan;
 use App\Models\Member;
 use App\Models\User;
+use App\Models\Produk;
+use App\Models\PenjualanDetail;
 
 use Illuminate\Http\Request;
 
@@ -17,10 +19,13 @@ class PenjualanController extends Controller
      */
     public function index()
     {
+        $penjualans = Penjualan::all();
         $members = Member::all();     
         $users = User::all();     
+        $produks = Produk::all();     
+        $penjualan_details = PenjualanDetail::all();     
 
-        return view('admin.penjualan', compact('members', 'users')); 
+        return view('admin.penjualan', compact('members', 'users', 'produks', 'penjualan_details')); 
     }
 
     public function api()
@@ -59,10 +64,21 @@ class PenjualanController extends Controller
             'bayar' => ['required'],
             'diterima' => ['required'],
             'id_user' => ['required'],
+            'multiple_produk' => 'array'
 
         ]);
         
-        penjualan::create($request->all());
+        $penjualan= Penjualan::create($request->all());
+
+        foreach($request->multiple_produk as $multi){
+            $details = new PenjualanDetail();
+            $details->id_produk = $multi;
+            $details->harga_jual = $request->total_harga;
+            $details->diskon = $request->diskon;
+            $details->subtotal = $request->total_harga*$request->total_item;
+            $details->jumlah = $request->total_item;
+            $penjualan->penjualanDetails()->save($details);
+        }
 
         return redirect('penjualans'); 
     }
@@ -75,7 +91,9 @@ class PenjualanController extends Controller
      */
     public function show(Penjualan $penjualan)
     {
-        //
+        $penjualans = PenjualanDetail::all();
+
+        return view('admin.penjualan.detail', compact('penjualans'));
     }
 
     /**

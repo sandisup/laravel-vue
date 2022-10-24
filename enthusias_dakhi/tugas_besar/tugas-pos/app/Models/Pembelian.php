@@ -12,14 +12,13 @@ class Pembelian extends Model
     protected $fillable = ['id_supplier', 'total_item','total_harga', 'diskon', 'bayar'];
 
 
-    public function pembelian_detail()
+    public function pembelianDetails()
     {
-        return $this->hasOne('App\Models\PembelianDetail', 'id_pembelian');
+        return $this->hasMany('App\Models\PembelianDetail', 'id_pembelian');
     }
 
     public function supplier()
     {
         return $this->belongsTo('App\Models\Supplier', 'id_supplier');
     }
-
 }

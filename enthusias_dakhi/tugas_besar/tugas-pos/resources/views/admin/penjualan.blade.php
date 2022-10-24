@@ -46,9 +46,27 @@
 
                     <input type="hidden" name="_method" value="PUT" v-if="editStatus">
 
-                    <div class="form-group">
+                   <!--  <div class="form-group">
                         <label>Nama Member</label>
                         <input type="text" class="form-control" name="id_member" :value="data.id_member" required="">
+                    </div> -->
+                <div class="form-group">
+                        <label>Member</label>
+                        <select name="id_member" class="form-control">
+                            @foreach($members as $member)
+                            <option value="{{ $member->id }}">{{ $member->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <label>Produk</label>
+                            <select class="select2 col-md-8" name="multiple_produk[]" multiple="multiple" data-placeholder="Masukkan Produk" required>
+                                @foreach($produks as $produk)
+                                        <option value="{{ $produk->id }} ">
+                                            {{ $produk->nama_produk }}
+                                        </option>
+                                @endforeach
+                            </select>
                     </div>
                     <div class="form-group">
                         <label>Total item</label>
@@ -70,11 +88,19 @@
                         <label>Diterima</label>
                         <input type="number" class="form-control" name="diterima" :value="data.diterima" required="">
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label>Nama User</label>
                         <input type="text" class="form-control" name="id_user" :value="data.id_user" required="">
+                    </div>-->
+                    <div class="form-group">
+                        <label>User</label>
+                        <select name="id_user" class="form-control">
+                            @foreach($users as $user)
+                            <option  
+                            value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -120,6 +146,9 @@
             return `
               <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
               Edit
+              </a>
+              <a href="{{ url('penjualans/${data.id}/detail') }}" class="btn btn-warning btn-sm">
+              Detail
               </a>
               <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
               Delete
@@ -185,4 +214,14 @@
 
         });
 </script>
+
+<script type="text/javascript">
+
+        //Initialize Select2 Elements
+    $('.select2').select2()
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+    theme: 'bootstrap4'
+    })
+    </script>
 @endsection

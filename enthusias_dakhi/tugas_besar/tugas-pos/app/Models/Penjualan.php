@@ -20,7 +20,7 @@ class Penjualan extends Model
     {
         return $this->belongsTo('App\Models\User', 'id_user');
     }
-    public function penjualan_detail()
+    public function penjualanDetails()
     {
         return $this->hasOne('App\Models\PenjualanDetail', 'id_penjualan');
     }
