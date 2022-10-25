@@ -89,11 +89,11 @@ class PenjualanController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(Penjualan $penjualan)
+    public function show($id)
     {
-        $penjualans = PenjualanDetail::all();
+        $penjualan = Penjualan::findOrFail($id);
 
-        return view('admin.penjualan.detail', compact('penjualans'));
+        return view('admin.penjualan.detail', compact('penjualan'));
     }
 
     /**

@@ -22,7 +22,7 @@ class Penjualan extends Model
     }
     public function penjualanDetails()
     {
-        return $this->hasOne('App\Models\PenjualanDetail', 'id_penjualan');
+        return $this->hasMany('App\Models\PenjualanDetail', 'id_penjualan');
     }
 
 }
