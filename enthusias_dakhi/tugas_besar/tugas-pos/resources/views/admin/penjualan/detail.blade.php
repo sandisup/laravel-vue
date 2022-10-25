@@ -5,10 +5,9 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="row">
-  <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <!-- Main content -->
           <div class="invoice p-3 mb-3">
             <!-- title row -->
@@ -20,27 +19,28 @@
               </div>
               <!-- /.col -->
             </div>
+            <div class="row">
+              <div class="col-12">
+                <p class="lead">{{ convert_date($penjualan->created_at) }}</p>
+              </div>
+            </div>
             <!-- info row -->
             <div class="row invoice-info">
               <div class="col-sm-4 invoice-col">
-                Dilayani Oleh
+                Member :
+                <address>
+                  <strong>{{ $penjualan->member->nama }}.</strong><br>
+                  {{ $penjualan->member->telepon }} <br>
+                </address>
+              </div>
+              <div class="col-sm-4 invoice-col">
+                Dilayani Oleh :
                 <address>
                   <strong>{{ $penjualan->user->name }}</strong><br>
                   {{ $penjualan->user->email }} 
                 </address>
               </div>
-
-              <div class="col-sm-4 invoice-col">
-                Member
-                <address>
-                  <strong>{{ $penjualan->member->nama }}.</strong><br>
-                  {{ $penjualan->member->alamat }} <br>
-                  {{ $penjualan->member->telepon }} <br>
-                  Email: info@almasaeedstudio.com
-                </address>
-              </div>
-      
-              <div class="col-sm-4 invoice-col"> <br>
+              <div class="col-sm-4 invoice-col"> 
                 <b>Invoice :  {{ $penjualan->id }}</b><br>
               </div>
               <!-- /.col -->
@@ -88,8 +88,6 @@
               </div>
               <!-- /.col -->
               <div class="col-6">
-                <p class="lead">Tanggal Transaksi {{ convert_date($penjualan->created_at) }}</p>
-
                 <div class="table-responsive">
                   <table class="table">
                     <tr>
@@ -118,13 +116,7 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
-                <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                  Payment
-                </button>
-                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                  <i class="fas fa-download"></i> Generate PDF
-                </button>
+                <a href="#" rel="noopener" target="_blank" class="btn btn-primary float-right"><i class="fas fa-print"></i> Print</a>
               </div>
             </div>
           </div>
@@ -132,7 +124,6 @@
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
-  </section>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

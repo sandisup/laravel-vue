@@ -76,6 +76,16 @@
                             </select>
                     </div>
                     <div class="form-group">
+                        <label>Harga Per Item</label>
+                        <select class="select2 col-md-8" name="multiple_harga[]" multiple="multiple" data-placeholder="Masukkan Harga" required>
+                            @foreach($produks as $produk)
+                                    <option value="{{ $produk->id }} ">
+                                        {{ $produk->harga_beli }}
+                                    </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Total item</label>
                         <input type="number" class="form-control" name="total_item" :value="data.total_item" required="">
                     </div>

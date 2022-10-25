@@ -59,7 +59,8 @@ class PembelianController extends Controller
             'total_harga'  => ['required'],
             'diskon' => ['required'],
             'bayar' => ['required'],
-            'multiple_produk' => 'array'
+            'multiple_produk' => 'array',
+            'multiple_harga' => 'array'
 
         ]);
         
@@ -68,7 +69,7 @@ class PembelianController extends Controller
         foreach($request->multiple_produk as $multi){
             $details = new PembelianDetail();
             $details->id_produk = $multi;
-            $details->harga_beli = $request->total_harga;
+            $details->harga_beli = $multi;
             $details->subtotal = $request->total_harga*$request->total_item;
             $details->jumlah = $request->total_item;
             $pembelian->pembelianDetails()->save($details);
