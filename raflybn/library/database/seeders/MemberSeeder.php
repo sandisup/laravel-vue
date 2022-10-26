@@ -28,6 +28,6 @@ class MemberSeeder extends Seeder
             $member->address = $faker->address;
             
             $member->save(); 
-        }
+        }   
     }
 }

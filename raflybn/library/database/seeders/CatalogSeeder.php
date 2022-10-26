@@ -15,8 +15,6 @@ class CatalogSeeder extends Seeder
      */
     public function run()
     {
-
-        
             $catalog_matematika = new Catalog;
             $catalog_kimia = new Catalog;
             $catalog_fisika = new Catalog;
@@ -30,7 +28,6 @@ class CatalogSeeder extends Seeder
             $catalog_matematika->save();
             $catalog_kimia->save();
             $catalog_fisika->save();
-            $catalog_hukum->save();
-        
+            $catalog_hukum->save();    
     }
 }
