@@ -25,7 +25,7 @@ class MemberSeeder extends Seeder
             $member->gender = $faker->title($gender = 'male'|'female');    
             $member->phone_number = $faker->randomNumber(8);
             $member->email = $faker->email;
-            $member->address = $faker->address;
+            $member->addres = $faker->address;
             
             $member->save(); 
         }   
