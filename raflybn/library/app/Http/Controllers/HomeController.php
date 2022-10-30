@@ -66,7 +66,6 @@ class HomeController extends Controller
                 ->where('qty','12')
                 ->get();
 
-        return $data5;
         return view('home');
     }
 }
