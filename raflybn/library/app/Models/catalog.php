@@ -9,6 +9,8 @@ class catalog extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name',];
+
     public function books()
     {
         return $this->hasMany('App\Models\Book', 'catalog_id');
