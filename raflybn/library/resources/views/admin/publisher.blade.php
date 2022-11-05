@@ -6,13 +6,14 @@
 @endsection
 
 @section('content')
+<div id="controller">
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                    <a href="{{ url('publishers/create') }}" class="btn-sm btn-primary pull-right">Create New Publisher</a>
+                    <a href="#" @click="addData()" class="btn-sm btn-primary pull-right">Create New Publisher</a>
                     </div>
                     
                     <div class="card-body">
@@ -103,5 +104,39 @@
 @endsection
 
 @section('js')
+<script type="text/javascript">
+        var controller = new Vue({
+            el: '#controller',
+            data: {
+                data : {},
+                actionUrl : '{{ url("publishers") }}',
+                editStatus : false
+            },
+            mounted: function () {
 
+            },
+            methods: {
+                addData() {
+                    this.data = {};
+                    this.actionUrl = '{{ url("publishers") }}';
+                    this.editStatus = false;
+                    $('#modal-default').modal();
+                },
+                editData(data) {
+                    this.data = data;
+                    this.actionUrl = '{{ url("publishers") }}'+'/'+data.id;
+                    this.editStatus = true;
+                    $('#modal-default').modal();
+                },
+                deleteData(id) {
+                    this.actionUrl = '{{ url("publishers") }}'+'/'+id;
+                    if (confirm("Are you sure ?")) {
+                        axios.post(this.actionUrl, {_method: 'DELETE'}).then(response =>{
+                            location.reload();
+                        })
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

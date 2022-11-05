@@ -32,7 +32,7 @@
                                     <td class="text-center">
                                       <a href="{{ url('catalogs/'.$catalog->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
 
-                                      <from action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">
+                                      <form action="{{ url('catalogs', ['id' => $catalog->id]) }}" method="post">
                                        <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
                                        @method('delete')
                                        @csrf
