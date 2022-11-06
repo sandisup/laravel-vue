@@ -1,10 +1,6 @@
 @extends('layouts.admin')
 @section('header', 'publisher')
 
-@section('css')
-
-@endsection
-
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -39,69 +35,30 @@
                                     <td>{{ $publisher->address }}</td>
                                     <td class="text-center">{{ count($publisher->books) }}</td>
                                     <td>{{ date('d/m/y-H:i:s',strtotime($publisher->created_at)) }}</td>
-                                    <td>
-                                        <a href="#" @click="editData({{ $publisher }})" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-danger btn-sm">Delete</a>
-                                    </td>
+                                    <td><a href="{{ url('publishers/'.$publisher->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ url('publishers', ['id' => $publisher->id]) }}" method="post">
+                                       <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+                                       @method('delete')
+                                       @csrf
+                                    </form>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        </ul>
+                    </div> -->
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" :action="actionUrl" autocomplete="off">
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">Publisher</h4>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-
-                        <input type="hidden" name="_method" value="PUT" v-if="editStatus">
-
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" :value="data.name" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" name="email" :value="data.email" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" class="form-control" name="phone_number" :value="data.phone_number" required="">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" name="address" :value="data.address" required="">
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modal-default">
-        </div>    
     </div>
-</section>
-@endsection
-
-@section('js')
-
 @endsection
