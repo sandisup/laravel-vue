@@ -22,34 +22,15 @@
                     <table id="datatable" class="table table-striped table-bordered">
                             <thead style="font-size:12px">
                                 <tr>
-                                    <th style="width: 10px">#</th>
+                                    <th style="width: 10px">NO</th>
                                     <th class="text-center">NAME</th>
                                     <th class="text-center">EMAIL</th>
                                     <th>PHONE NUMBER</th>
                                     <th class="text-center">ADDRESS</th>
-                                    <th class="text-center">TOTAL BOOKS</th>
                                     <th>CREATED AT</th>
                                     <th class="text-center">ACTION</th>          
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach($publishers as $key => $publisher)
-                                <tr style="font-size:15px">
-                                    <td>{{ $key+1 }}</td>
-                                    <td>{{ $publisher->name }}</td>
-                                    <td>{{ $publisher->email }}</td>
-                                    <td>{{ $publisher->phone_number }}</td>
-                                    <td>{{ $publisher->address }}</td>
-                                    <td class="text-center">{{ count($publisher->books) }}</td>
-                                    <td>{{ date('d/m/y-H:i:s',strtotime($publisher->created_at)) }}</td>
-                                    <td>
-                                        <a href="#" @click="editData({{ $publisher }})" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="#" @click="deleteData({{ $publisher->id }})" class="btn btn-danger btn-sm">Delete</a>
-                                    </td>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -58,20 +39,16 @@
         <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" :action="actionUrl" autocomplete="off">
+            <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                     <div class="modal-header">
-
                         <h4 class="modal-title">Publisher</h4>
-
                         <button type="button" class="close" data-dismiss="modal" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         @csrf
-
                         <input type="hidden" name="_method" value="PUT" v-if="editStatus">
-
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" :value="data.name" required="">
@@ -88,21 +65,20 @@
                             <label>Address</label>
                             <input type="text" class="form-control" name="address" :value="data.address" required="">
                         </div>
-
-
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+            <div class="modal fade" id="modal-default">
+            </div>    
         </div>
-
-        <div class="modal fade" id="modal-default">
-        </div>    
-    </div>
-</section>
+    </section>
+</div>
 @endsection
 
 @section('js')
@@ -119,12 +95,34 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
- <script type="text/javascript">
+<script type="text/javascript">
+    var actionUrl = '{{ url("publishers") }}';
+    var apiUrl = '{{ url("api/publishers") }}';
+
+    var columns = [
+        {data: 'DT_RowIndex', class: 'text-center', orderable: false},
+        {data: 'name', class: 'text-center', orderable: false},
+        {data: 'email', class: 'text-center', orderable: true},
+        {data: 'phone_number', class: 'text-center', orderable: true},
+        {data: 'address', class: 'text-center', orderable: true},
+        {data: 'created_at', class: 'text-center', orderable: true},
+        {render: function (index, row, data, meta) {
+            return `
+              <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+              Edit
+              </a>
+              <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+              Delete
+              </a>`;
+        }, orderable: false, width: '200px', class: 'text-center'},
+        ];
+</script>
+<script src="{{ asset('js/data.js') }}"></script>
+ <!-- <script type="text/javascript">
     $(function () {
     $("#datatable").DataTable();
   });
  </script>
-<!-- CRUD vue js -->
 <script type="text/javascript">
         var controller = new Vue({
             el: '#controller',
@@ -159,5 +157,5 @@
                 }
             }
         });
-    </script>
+    </script> -->
 @endsection

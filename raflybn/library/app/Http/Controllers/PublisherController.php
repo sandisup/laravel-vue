@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Publisher;
 use App\Models\publisher as ModelsPublisher;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Contracts\DataTable;
+use Yajra\DataTables\DataTables;
 
 class PublisherController extends Controller
 {
@@ -19,10 +21,17 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::with('books')->get();
+        //$publishers = Publisher::with('books')->get();
 
         //return $publishers;
-        return view('admin.publisher', compact('publishers'));
+        return view('admin.publisher');
+    }
+    public function api()
+    {
+        $publishers = Publisher::all();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+        
+        return $datatables->make(true);
     }
 
     /**
