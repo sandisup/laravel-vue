@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\catalog;
+use App\Models\author;
+use App\Models\publisher;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -14,7 +17,17 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book.booksheet');
+        $publishers = publisher::all();
+        $authors = author::all();
+        $catalogs = catalog::all();
+        return view('admin.book', compact('publishers','authors','catalogs'));
+    }
+
+    public function api()
+    {
+        $books = Book::all();
+        
+        return json_encode($books);
     }
 
     /**
@@ -35,7 +48,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'isbn' => ['required'],
+            'title'  => ['required'],
+            'year' => ['required'],
+            'qty' => ['required'],
+            'price' => ['required'],
+
+        ]);
+        
+        book::create($request->all());
+
+        return redirect('books');  
     }
 
     /**
@@ -69,7 +93,18 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $this->validate($request,[
+            'isbn' => ['required'],
+            'title'  => ['required'],
+            'year' => ['required'],
+            'qty' => ['required'],
+            'price' => ['required'],
+
+        ]);
+        
+        $book->update($request->all());
+
+        //return redirect('books');  
     }
 
     /**
@@ -80,6 +115,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
     }
 }
