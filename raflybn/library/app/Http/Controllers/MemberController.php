@@ -26,7 +26,15 @@ class MemberController extends Controller
     public function api()
     {
         $members = Member::all();
-        $datatables = datatables()->of($members)->addIndexColumn();
+
+        // foreach ($members as $key => $member) {
+        //     $member->date = convert_date($member->created_at);
+        // }
+
+        $datatables = datatables()->of($members)
+                                  ->addColumn('date', function($member) {
+                                       return convert_date($member->created_at);
+                                  }) ->addIndexColumn();
         
         return $datatables->make(true);
     }
