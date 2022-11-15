@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Author;
@@ -66,6 +67,35 @@ class HomeController extends Controller
                 ->where('qty','12')
                 ->get();
 
-        return view('home');
+        //return view('home');
+
+        $total_books = Book::count();
+        $total_members = Member::count();
+        $total_catalogs = Catalog::count();
+        $total_transactions = Transaction::whereMonth('date_start', date('m'))->count();
+
+        $data_donut = Book::select(DB::raw("COUNT(catalog_id) as total"))->groupBy('catalog_id')->orderBy('catalog_id', 'asc')->pluck('total');
+        $label_donut = Catalog::orderBy('catalogs.id', 'asc')->join('books', 'books.catalog_id', '=', 'catalogs.id')->groupBy('catalogs.name')->pluck('catalogs.name');
+
+        $label_bar = ['Date_start', 'Date_end'];
+        $data_bar = [];
+
+        foreach ($label_bar as $key => $value) {
+                $data_bar[$key]['label'] = $label_bar[$key];
+                $data_bar[$key]['backgroundColor'] = $key == 0 ? 'rgba(60,141,188,0.9)' : 'rgba(210,214,222,1)';
+                $data_month = [];
+
+                foreach (range(1,12) as $month) {
+                    if ($key == 0){
+                        $data_month[] = Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('date_start', $month)->first()->total;
+                } else{
+                        $data_month[] = Transaction::select(DB::raw("COUNT(*) as total"))->whereMonth('date_end', $month)->first()->total;
+                }
+             }
+                $data_bar[$key]['data'] = $data_month;
+        }
+        //return $data_bar;
+
+        return view('home', compact('total_books', 'total_members','total_catalogs','total_transactions','data_donut','label_donut','data_bar'));
     }
 }
