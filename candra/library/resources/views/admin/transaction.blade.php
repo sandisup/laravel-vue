@@ -18,15 +18,13 @@
                     </div>
                     <div class="col-md-2">
                         <select class="form-control" name="status">
-                            <option value="2">Filter Status</option>
-                            <option value="0">Belum Dikembalikan</option>
-                            <option value="1">Sudah Dikembalikan</option>
+                            <option value="3">Filter Status</option>
+                            <option value="1">Belum Dikembalikan</option>
+                            <option value="2">Sudah Dikembalikan</option>
                         </select>
                     </div>
                     <div class="col-lg-3">
-                        <select class="form-control" name="date_start">
-                            <option value="0">Filter Tanggal Pinjam</option>
-                        </select>
+                        <input type="date" name="date_start" class="form-control">
                     </div>
                 </div>
             </div>
@@ -43,6 +41,7 @@
                     <th>Total Buku</th>
                     <th>Total Bayar</th>
                     <th>Status</th>
+                    <th>Id</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -87,9 +86,12 @@
                                 <label class="col-md-3">Book</label>
                                 <select class="select2 col-md-8" name="multiple_book[]" multiple="multiple" data-placeholder="Masukkan Buku" required>
                                     @foreach($books as $book)
+                                    @if( $book->qty > 0 ){
                                         <option value="{{ $book->id }} ">
                                             {{ $book->title }}
                                         </option>
+                                    }
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -97,12 +99,12 @@
                             <div class="form-group" v-if="editStatus">
                                 <div>
                                     <label class="col-md-3">Status</label>
-                                    <input id="radio1" type="radio" name="status" :checked="data.status!=1" value="0">
+                                    <input id="radio1" type="radio" name="status" :checked="data.status!=1" value="1">
                                     <label for="radio1">Belum Dikembalikan</label>
                                 </div>
                                 <div>
                                     <label class="col-md-3"></label>
-                                    <input id="radio2" type="radio" name="status" :checked="data.status==1" value="1">
+                                    <input id="radio2" type="radio" name="status" :checked="data.status==2" value="2">
                                     <label for="radio2">sudah Dikembalikan</label>
                                 </div>
                                 </div>
@@ -198,9 +200,11 @@
             {data: 'date_end', class: 'text-center', orderable: true},
             {data: 'name', class: 'text-center', orderable: true},
             {data: 'lama_pinjam', class: 'text-center', orderable: false},
-            {data: 'member_id', class: 'text-center', orderable: false},
-            {data: 'member_id', class: 'text-center', orderable: false},
+            {data: 'total_buku', class: 'text-center', orderable: false},
+            {data: 'total_harga', class: 'text-center', orderable: false},
             {data: 'status_name', class: 'text-center', orderable: false},
+            {data: 'status', class: 'text-center', orderable: false},            
+
             {render: function (index, row, data, meta)
                 {
                     return `
@@ -308,10 +312,20 @@
         $('select[name=status').on('change', function(){
             status = $('select[name=status]').val();
 
-            if(status == 0){
-                controller.table.ajax.url(actionUrl).load();
+            if(status == 3){
+                controller.table.ajax.url(apiUrl).load();
             } else{
-                controller.table.ajax.url(actionUrl+'?status='+status).load();
+                controller.table.ajax.url(apiUrl+'?status='+status).load();
+            }
+        });
+
+        $('select[name=date_start').on('change', function(){
+            date_start = $('select[name=date_start]').val();
+
+            if(date_start == 'date_start'){
+                controller.table.ajax.url(apiUrl+'?date_start='+date_start).load();
+            } else{
+                controller.table.ajax.url(apiUrl).load();
             }
         });
         //Initialize Select2 Elements

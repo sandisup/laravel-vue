@@ -38,20 +38,47 @@ class TransactionController extends Controller
 
     public function api(Request $request)
     {
+        // filter status
         if($request->status){
-            $transactions = Transaction::where('status',$request->status)->get();
+            $transactions = Transaction::where('status',$request->status);
         }else {
-            $transactions = Transaction::all();
+            $transactions = Transaction::query();
         }
 
-        $transactions = Transaction::with(['transactionDetails.books'])
+        // if($request->date_start){
+        //     $transactions = Transaction::where('date_start', $request->date_start);
+        // } else{
+        //     $transactions = Transaction::query();
+        // }
+
+        $transactions->with(['transactionDetails.books'])
         ->selectRaw('datediff(date_end, date_start) as lama_pinjam, transactions.*, members.name')
         
         ->join('members', 'members.id', 'transactions.member_id')->get();
         
         $datatables = datatables()->of($transactions)
         ->addColumn('status_name', function ($row){
-            return $row->status? 'Sudah Dikembalikan': 'Belum Dikembalikan';
+            // return $row->status? 'Belum Dikembalikan': 'Sudah Dikembalikan';
+            if ($row->status == 1) {
+                return 'Belum Dikembalikan';
+            } else{
+                return 'Sudah Dikembalikan';
+            }
+
+        })
+        ->addColumn('total_buku', function ($row){
+            return $row->transactionDetails->count();
+        })
+        ->addColumn('total_harga', function ($row){
+            $count = $row->transactionDetails->count();
+            $grand_total = 0; 
+            foreach($row->transactionDetails as $total){
+                $qty = $total->qty;
+                $harga = $total->books->price;
+                $total_harga = $qty * $harga;
+                $grand_total += $total_harga;
+            }
+            return $grand_total;
         })
         // Detail data buku
         // ->addColumn('details', function ($row){
@@ -83,15 +110,20 @@ class TransactionController extends Controller
             'member_id'  => 'required',
             'date_start'  => 'required',
             'date_end'  => 'required',
-            'multiple_book' => 'array'
+            'multiple_book' => 'array',
+            // 'status' => 'required'
         ]);
 
+        $request->input('status', 1);
         $transaction = Transaction::create($request->only('member_id', 'date_start', 'date_end', 'status'));
 
         foreach($request->multiple_book as $multi){
             $details = new TransactionDetail();
             $details->book_id = $multi;
             $details->qty = 1;
+            $books = Book::find($multi);
+            $books->qty = $books->qty - 1;
+            $books->save();
             $transaction->transactionDetails()->save($details);
         }
         
@@ -137,6 +169,14 @@ class TransactionController extends Controller
         ]);
 
         $transaction->update($request->all());
+        if($request->status == 2){
+            foreach($request->multiple_book as $multi){
+                $books = Book::find($multi);
+                $books->qty = $books->qty + 1;
+                $books->save();
+            }
+        }
+        
         return redirect('transactions');
     }
 
@@ -148,6 +188,6 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
     }
 }

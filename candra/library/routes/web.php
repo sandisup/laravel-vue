@@ -40,12 +40,14 @@ Route::resource('/publishers', App\Http\Controllers\PublisherController::class);
 Route::resource('/members', App\Http\Controllers\MemberController::class);
 Route::resource('/books', App\Http\Controllers\BookController::class);
 Route::resource('/transactions', App\Http\Controllers\TransactionController::class);
+Route::resource('/notifications', App\Http\Controllers\NotificationController::class);
 
 Route::get('/api/authors', [App\Http\Controllers\AuthorController::class, 'api']);
 Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 'api']);
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
 Route::get('/api/books', [App\Http\Controllers\BookController::class, 'api']);
 Route::get('/api/transactions', [App\Http\Controllers\TransactionController::class, 'api']);
+Route::get('/api/notifications', [App\Http\Controllers\NotificationController::class, 'api']);
 
 // Route::get('/publishers', [App\Http\Controllers\PublisherController::class, 'index']);
 // Route::get('/publishers/create', [App\Http\Controllers\PublisherController::class, 'create']);
